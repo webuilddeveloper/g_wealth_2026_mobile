@@ -1,4 +1,5 @@
 import 'package:LawyerOnline/gwealth/services/gw_content_service.dart';
+import 'package:LawyerOnline/gwealth/services/gw_map.dart';
 import 'package:LawyerOnline/gwealth/theme.dart';
 import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,15 @@ class GWKnowledgePage extends StatefulWidget {
 }
 
 class _GWKnowledgePageState extends State<GWKnowledgePage> {
-  List<GWKnowledgeItem> _items = const [];
+  List<dynamic> _items = [];
   bool _loading = true;
+
+  static const _colors = [
+    GW.primary,
+    GW.accentPurple,
+    GW.accentBlue,
+    Color(0xFF06B6D4),
+  ];
 
   @override
   void initState() {
@@ -61,7 +69,11 @@ class _GWKnowledgePageState extends State<GWKnowledgePage> {
                       ),
                     )
                   else
-                    ..._items.map((e) {
+                    ...List.generate(_items.length, (i) {
+                      final e = _items[i];
+                      final color = _colors[i % _colors.length];
+                      final title = gwStr(e, 'title');
+                      final summary = gwHtml(e, 'description');
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Material(
@@ -76,11 +88,11 @@ class _GWKnowledgePageState extends State<GWKnowledgePage> {
                                   width: 48,
                                   height: 48,
                                   decoration: BoxDecoration(
-                                    color: e.color.withValues(alpha: 0.12),
+                                    color: color.withValues(alpha: 0.12),
                                     borderRadius: BorderRadius.circular(14),
                                   ),
                                   child: Icon(Icons.menu_book_outlined,
-                                      color: e.color),
+                                      color: color),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
@@ -88,14 +100,14 @@ class _GWKnowledgePageState extends State<GWKnowledgePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(e.title,
+                                      Text(title,
                                           style: GW.text(
                                               size: 15,
                                               weight: FontWeight.w700)),
-                                      if (e.summary.isNotEmpty) ...[
+                                      if (summary.isNotEmpty) ...[
                                         const SizedBox(height: 4),
                                         Text(
-                                          e.summary,
+                                          summary,
                                           style: GW.text(
                                             size: 13,
                                             color: GW.inkMuted,

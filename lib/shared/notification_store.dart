@@ -46,11 +46,11 @@ class NotificationStore extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final result = await postDio('$server/m/notification/unreadSummary', {
+      final result = await postDio('${server}m/notification/unreadSummary', {
         'code': userCode,
       });
 
-      if (result['status'] != 'S') return;
+      if (result == null || result['status'] != 'S') return;
 
       final data = result['objectData'];
       if (data is Map) {

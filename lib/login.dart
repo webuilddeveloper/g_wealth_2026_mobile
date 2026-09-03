@@ -2,6 +2,7 @@ import 'package:LawyerOnline/change-password.dart';
 import 'package:LawyerOnline/component/comming-soon.dart';
 import 'package:LawyerOnline/component/dialog_service.dart';
 import 'package:LawyerOnline/component/loading_service.dart';
+import 'package:LawyerOnline/gwealth/theme.dart';
 import 'package:LawyerOnline/menu.dart';
 import 'package:LawyerOnline/register_page.dart';
 import 'package:LawyerOnline/services/auth_service.dart';
@@ -12,12 +13,12 @@ import 'package:LawyerOnline/shared/line.dart';
 import 'package:LawyerOnline/shared/notification-service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:LawyerOnline/models/user_model.dart';
 import 'package:LawyerOnline/models/user_profile_store.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:LawyerOnline/shared/responsive/app_layout.dart';
-import 'package:LawyerOnline/shared/responsive/res_layout.dart';
 
 class LoginPage extends StatefulWidget {
   final bool isBack;
@@ -41,56 +42,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   bool isLoading = false;
 
-  // late final AnimationController _controllerAnimation = AnimationController(
-  //   duration: const Duration(seconds: 1),
-  //   vsync: this,
-  // )..repeat(reverse: true);
-  // late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-  //   begin: const Offset(2, 0),
-  //   end: const Offset(-0.2, 0),
-  // ).animate(
-  //   CurvedAnimation(
-  //     parent: _controllerAnimation,
-  //     curve: Curves.elasticOut,
-  //   ),
-  // );
-
-  late final AnimationController _controllerAnimationCardLogin =
-      AnimationController(
-    duration: const Duration(milliseconds: 1800),
-    vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<Offset> _animationDialog = Tween<Offset>(
-    begin: const Offset(0, 0.7),
-    end: const Offset(0, 0),
-  ).animate(
-    CurvedAnimation(
-      parent: _controllerAnimationCardLogin,
-      curve: Curves.elasticOut,
-    ),
-  );
-
-  late final AnimationController _controllerAnimationLoginSocial =
-      AnimationController(
-    duration: const Duration(milliseconds: 1800),
-    vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<Offset> _animationLoginSocial = Tween<Offset>(
-    begin: const Offset(0, -0.7),
-    end: const Offset(0, 0),
-  ).animate(
-    CurvedAnimation(
-      parent: _controllerAnimationLoginSocial,
-      curve: Curves.elasticOut,
-    ),
-  );
-
-  // late final Animation<double> _animationDialog = CurvedAnimation(
-  //     parent: _controllerAnimationDialog,
-  //     curve: Curves.easeInOutBack,
-  //     reverseCurve: Curves.elasticIn
-  //     );
-
   @override
   void initState() {
     super.initState();
@@ -98,466 +49,403 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         vsync: this, duration: const Duration(milliseconds: 800));
     fade = CurvedAnimation(parent: controller, curve: Curves.easeOut);
     controller.forward();
-
-    Future.delayed(const Duration(milliseconds: 1800), () {
-      _controllerAnimationLoginSocial.stop();
-      _controllerAnimationCardLogin.stop();
-    });
-    // Future.delayed(const Duration(seconds: 0), () {
-    //   _dialog();
-    // });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF061B4A),
-      body: FadeTransition(
-        opacity: fade,
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFF061B4A),
-          ),
-          child: AppLayout(
-            maxWidth: 500,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                child: ListView(
-                  shrinkWrap: ResponsiveLayout.isDesktop(context),
-                  children: [
-                    const SizedBox(height: 20),
+  void dispose() {
+    controller.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
-                    /// 🔹 Login Card
-                    SlideTransition(
-                      position: _animationDialog,
-                      child: Container(
-                        padding: const EdgeInsets.all(24),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 20,
-                              color: Color.fromARGB(146, 0, 0, 0),
-                            )
-                          ],
-                        ),
-                        child: Stack(
-                          children: [
-                            Column(
-                              // physics: const BouncingScrollPhysics(),
-                              children: [
-                                Image.asset(
-                                  "assets/icons/logo.png",
-                                  width: 120,
-                                  height: 120,
-                                ),
-
-                                const SizedBox(height: 12),
-
-                                Text(
-                                  'appTitle'.tr(),
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-
-                                const SizedBox(height: 15),
-                                // const Text(
-                                //   "เข้าสู่ระบบ",
-                                //   textAlign: TextAlign.left,
-                                //   style: TextStyle(
-                                //     fontSize: 20,
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-
-                                // const SizedBox(height: 10),
-
-                                /// Username
-                                TextField(
-                                  controller: usernameController,
-                                  decoration: InputDecoration(
-                                    prefixIcon:
-                                        const Icon(Icons.person_outline),
-                                    labelText: "username".tr(),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(14),
-                                    ),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 15),
-
-                                /// Password
-                                TextField(
-                                  controller: passwordController,
-                                  obscureText: obscure,
-                                  decoration: InputDecoration(
-                                    prefixIcon: const Icon(Icons.lock_outline),
-                                    labelText: "passwordPlaceholder".tr(),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(14),
-                                    ),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
-                                        obscure
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          obscure = !obscure;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 5),
-
-                                /// Remember
-                                Row(
-                                  children: [
-                                    // Checkbox(
-                                    //   value: remember,
-                                    //   activeColor: Colors.blue,
-                                    //   onChanged: (v) {
-                                    //     setState(() {
-                                    //       remember = v!;
-                                    //     });
-                                    //   },
-                                    // ),
-                                    // const Text("Remember me"),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegisterPage(),
-                                          ),
-                                        );
-                                      },
-                                      child: Text("register".tr()),
-                                    ),
-                                    const Spacer(),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ChangePasswordPage(),
-                                          ),
-                                        );
-                                      },
-                                      child: Text("forgotPassword".tr()),
-                                    )
-                                  ],
-                                ),
-
-                                const SizedBox(height: 20),
-
-                                /// 🔹 Login Button
-                                SizedBox(
-                                  height: 50,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      !isLoading ? login() : null;
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: isLoading
-                                            ? Colors.grey.shade100
-                                            : const Color(0xFF2563EB),
-                                        // gradient: LinearGradient(
-                                        //   colors: [
-                                        //     Color(0xFF2563EB),
-                                        //     Color(0xFF3B82F6),
-                                        //   ],
-                                        // ),
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(14),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: isLoading
-                                            ? const DotsLoader(
-                                                color: Color(0xFF0262EC),
-                                              )
-                                            : Text(
-                                                "login".tr(),
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: isLoading
-                                                        ? Colors.grey
-                                                        : Colors.white),
-                                              ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 20),
-
-                                SizedBox(
-                                  height: 50,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ComingSoonPage(
-                                            title: "Comming Soon",
-                                            lottieUrl:
-                                                "https://assets7.lottiefiles.com/packages/lf20_kkflmtur.json",
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xFF040651),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(14)),
-                                      ),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            // assets/icons/thaiid.png
-                                            Image.asset(
-                                              'assets/icons/thaiid.png',
-                                              width: 42,
-                                              height: 42,
-                                            ),
-                                            const SizedBox(width: 5),
-                                            Text(
-                                              'loginWithThaiID'.tr(),
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            widget.isBack
-                                ? Positioned(
-                                    top: 0,
-                                    left: 0,
-                                    child: GestureDetector(
-                                      onTap: () => goBack(),
-                                      child: Container(
-                                        // width: 0,
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 10,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFFFAFAFA),
-                                          // borderRadius: BorderRadius.circular(22),
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            width: 1,
-                                            color: const Color(0xFFDBDBDB),
-                                          ),
-                                        ),
-                                        child: const Icon(
-                                          Icons.arrow_back_ios_new,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox(),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    Row(
-                      children: [
-                        const Expanded(child: Divider()),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            'or'.tr(),
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        const Expanded(child: Divider()),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    /// Login Social
-                    SlideTransition(
-                      position: _animationLoginSocial,
-                      child: Center(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              socialItem(
-                                  icon: "assets/icons/facebook.png",
-                                  action: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ComingSoonPage(
-                                          title: "Comming Soon",
-                                          lottieUrl:
-                                              "https://assets7.lottiefiles.com/packages/lf20_kkflmtur.json",
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                              const SizedBox(width: 15),
-                              // socialItem(
-                              //     icon: "assets/icons/ig.png",
-                              //     action: () {}),
-                              // const SizedBox(width: 15),
-                              // socialItem(
-                              //     icon: "assets/icons/x.png",
-                              //     action: () {}),
-                              // const SizedBox(width: 15),
-                              socialItem(
-                                  icon: "assets/icons/apple.png",
-                                  action: () {
-                                    // pressApple();
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ComingSoonPage(
-                                          title: "Comming Soon",
-                                          lottieUrl:
-                                              "https://assets7.lottiefiles.com/packages/lf20_kkflmtur.json",
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                              const SizedBox(width: 15),
-                              socialItem(
-                                  icon: "assets/icons/google.png",
-                                  action: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ComingSoonPage(
-                                          title: "Comming Soon",
-                                          lottieUrl:
-                                              "https://assets7.lottiefiles.com/packages/lf20_kkflmtur.json",
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                              const SizedBox(width: 15),
-                              socialItem(
-                                icon: "assets/icons/line.png",
-                                isLine: true,
-                                action: () {
-                                  pressLine();
-                                },
-                              ),
-                              // const SizedBox(width: 15),
-                              // socialItem(
-                              //   icon: "assets/icons/thaiid.png",
-                              //   isThaiid: true,
-                              //   action: () {
-                              //     Navigator.push(
-                              //       context,
-                              //       MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             const ComingSoonPage(
-                              //           title: "Comming Soon",
-                              //           lottieUrl:
-                              //               "https://assets7.lottiefiles.com/packages/lf20_kkflmtur.json",
-                              //         ),
-                              //       ),
-                              //     );
-                              //   },
-                              // ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
+  InputDecoration _fieldDecoration({
+    required String label,
+    required IconData icon,
+    Widget? suffix,
+  }) {
+    return InputDecoration(
+      prefixIcon: Icon(icon, color: GW.inkMuted, size: 20),
+      suffixIcon: suffix,
+      labelText: label,
+      labelStyle: GW.text(size: 14, color: GW.inkMuted),
+      filled: true,
+      fillColor: const Color(0xFFFAFAFA),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: GW.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: GW.border),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: GW.primary, width: 1.5),
       ),
     );
   }
 
-  Widget socialItem(
-      {String? icon,
-      Function? action,
-      bool isLine = false,
-      bool isThaiid = false}) {
-    return GestureDetector(
-      onTap: () => action?.call(),
-      child: Container(
-        width: 42,
-        height: 42,
-        alignment: Alignment.center,
-        // padding: const EdgeInsets.symmetric(
-        //   horizontal: 12,
-        //   vertical: 10,
-        // ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          // borderRadius: BorderRadius.circular(16.8),
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: 1,
-            color: const Color(0xFFDBDBDB),
-          ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(14),
-          child: Image.asset(
-            icon ?? '',
-            width: isThaiid
-                ? 42
-                : isLine
-                    ? 25
-                    : 18,
-            height: isThaiid
-                ? 42
-                : isLine
-                    ? 25
-                    : 18,
+  @override
+  Widget build(BuildContext context) {
+    final top = MediaQuery.paddingOf(context).top;
+    const headerBody = 188.0;
+    final headerHeight = top + headerBody;
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor: GW.bg,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: GW.bg,
+        body: FadeTransition(
+          opacity: fade,
+          child: AppLayout(
+            maxWidth: 500,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                SizedBox(
+                  height: headerHeight,
+                  child: ClipPath(
+                    clipper: GWHeaderCurveClipper(),
+                    child: Container(
+                      width: double.infinity,
+                      decoration:
+                          const BoxDecoration(gradient: GW.headerGradient),
+                      padding: EdgeInsets.fromLTRB(12, top + 4, 12, 48),
+                      child: Stack(
+                        children: [
+                          if (widget.isBack)
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Material(
+                                color: Colors.white.withValues(alpha: 0.18),
+                                shape: const CircleBorder(),
+                                child: InkWell(
+                                  customBorder: const CircleBorder(),
+                                  onTap: goBack,
+                                  child: const SizedBox(
+                                    width: 40,
+                                    height: 40,
+                                    child: Icon(
+                                      Icons.arrow_back_ios_new_rounded,
+                                      size: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 36),
+                            child: Column(
+                            children: [
+                              const SizedBox(height: 4),
+                              Container(
+                                width: 72,
+                                height: 72,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black
+                                          .withValues(alpha: 0.12),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                child: Image.asset(
+                                  'assets/icons/logo.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'appTitle'.tr(),
+                                style: GW.text(
+                                  size: 22,
+                                  weight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'loginSubtitle'.tr(),
+                                textAlign: TextAlign.center,
+                                style: GW.text(
+                                  size: 13,
+                                  color: Colors.white.withValues(alpha: 0.92),
+                                  height: 1.35,
+                                ),
+                              ),
+                            ],
+                          ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Transform.translate(
+                  offset: const Offset(0, -28),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(20, 22, 20, 22),
+                      decoration: GW.card(radius: 22),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'login'.tr(),
+                            textAlign: TextAlign.center,
+                            style: GW.text(
+                              size: 18,
+                              weight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            'loginFormHint'.tr(),
+                            textAlign: TextAlign.center,
+                            style: GW.text(size: 13, color: GW.inkMuted),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: usernameController,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.next,
+                            style: GW.text(size: 15),
+                            decoration: _fieldDecoration(
+                              label: 'loginEmail'.tr(),
+                              icon: Icons.mail_outline_rounded,
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                          TextField(
+                            controller: passwordController,
+                            obscureText: obscure,
+                            textInputAction: TextInputAction.done,
+                            onSubmitted: (_) {
+                              if (!isLoading) login();
+                            },
+                            style: GW.text(size: 15),
+                            decoration: _fieldDecoration(
+                              label: 'passwordPlaceholder'.tr(),
+                              icon: Icons.lock_outline_rounded,
+                              suffix: IconButton(
+                                icon: Icon(
+                                  obscure
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: GW.inkMuted,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    obscure = !obscure;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegisterPage(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'register'.tr(),
+                                  style: GW.text(
+                                    size: 13,
+                                    weight: FontWeight.w600,
+                                    color: GW.primary,
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ChangePasswordPage(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'forgotPassword'.tr(),
+                                  style: GW.text(
+                                    size: 13,
+                                    color: GW.inkMuted,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            height: 50,
+                            child: GestureDetector(
+                              onTap: () {
+                                if (!isLoading) login();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: isLoading
+                                      ? null
+                                      : GW.headerGradient,
+                                  color: isLoading
+                                      ? GW.primaryMute
+                                      : null,
+                                  borderRadius: BorderRadius.circular(14),
+                                  boxShadow: isLoading
+                                      ? []
+                                      : [
+                                          BoxShadow(
+                                            color: GW.primary
+                                                .withValues(alpha: 0.28),
+                                            blurRadius: 12,
+                                            offset: const Offset(0, 5),
+                                          ),
+                                        ],
+                                ),
+                                child: Center(
+                                  child: isLoading
+                                      ? const DotsLoader(color: Colors.white)
+                                      : Text(
+                                          'login'.tr(),
+                                          style: GW.text(
+                                            size: 16,
+                                            weight: FontWeight.w700,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          SizedBox(
+                            height: 50,
+                            child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                side: const BorderSide(color: GW.border),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                                backgroundColor: Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ComingSoonPage(
+                                      title: "Comming Soon",
+                                      lottieUrl:
+                                          "https://assets7.lottiefiles.com/packages/lf20_kkflmtur.json",
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'assets/icons/thaiid.png',
+                                    width: 36,
+                                    height: 36,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'loginWithThaiID'.tr(),
+                                    style: GW.text(
+                                      size: 15,
+                                      weight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 18),
+                          Row(
+                            children: [
+                              const Expanded(child: Divider(color: GW.border)),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  'or'.tr(),
+                                  style: GW.text(
+                                    size: 12,
+                                    color: GW.inkMuted,
+                                  ),
+                                ),
+                              ),
+                              const Expanded(child: Divider(color: GW.border)),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                            height: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                backgroundColor: const Color(0xFF06C755),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              onPressed: pressLine,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'assets/icons/line.png',
+                                    width: 22,
+                                    height: 22,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'loginWithLine'.tr(),
+                                    style: GW.text(
+                                      size: 15,
+                                      weight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -566,10 +454,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   pressLine() async {
     try {
-      // เรียก LINE LOGIN ก่อน
       var obj = await loginLine();
 
-      // เมื่อกลับมาที่แอพแล้วค่อยโชว์ Loading
       DialogService.showLoading(context);
 
       final idToken = obj.accessToken.idToken;
@@ -579,7 +465,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         await FirebaseMessaging.instance.getToken() ?? '',
       );
 
-      // ── setUser → persist + broadcast ──
       await UserProfileStore.instance.setUser(
         UserModel(
             code: obj.userProfile!.userId,
@@ -608,7 +493,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       );
 
       if (!mounted) return;
-      // ปิด Loading
       Navigator.pop(context);
 
       await Navigator.pushReplacement(
@@ -641,23 +525,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     print(model);
     print(
         "---------------------------------------------------------------------");
-    // Dio dio = Dio();
-    // var response = await dio.post(
-    //   '${server}m/v2/register/apple/login',
-    //   data: model,
-    // );
-    // createStorageApp(
-    //   model: response.data['objectData'],
-    //   category: 'apple',
-    // );
-    // if (obj != null) {
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => MenuV4(),
-    //     ),
-    //   );
-    // }
   }
 
   login() async {
@@ -672,8 +539,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         'guest',
       );
       final user = session.user;
-      // ── setUser → persist ทุก field + broadcast ให้ทุก widget ทราบทันที ──
-      // ถ้า imageUrl ว่างใช้ default avatar แทน
       final userWithAvatar = user.imageUrl.isNotEmpty
           ? user
           : user.copyWith(imageUrl: 'assets/images/profile-avatar.jpg');
@@ -723,16 +588,19 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
           isBanned ? 'บัญชีถูกปิดใช้งานถาวร' : 'บัญชีถูกระงับชั่วคราว',
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+          style: GW.text(size: 18, weight: FontWeight.w700),
         ),
         content: Text(
           error.message,
-          style: const TextStyle(fontSize: 14, height: 1.45),
+          style: GW.text(size: 14, height: 1.45),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('ตกลง'),
+            child: Text(
+              'ตกลง',
+              style: GW.text(weight: FontWeight.w600, color: GW.primary),
+            ),
           ),
         ],
       ),

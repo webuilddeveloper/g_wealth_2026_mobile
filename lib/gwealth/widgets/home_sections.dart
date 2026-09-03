@@ -1,5 +1,5 @@
 import 'package:LawyerOnline/gwealth/data/mock_data.dart';
-import 'package:LawyerOnline/gwealth/services/home_content_service.dart';
+import 'package:LawyerOnline/gwealth/services/gw_map.dart';
 import 'package:LawyerOnline/gwealth/theme.dart';
 import 'package:LawyerOnline/login.dart';
 import 'package:LawyerOnline/models/user_profile_store.dart';
@@ -173,7 +173,7 @@ class _HeaderIconButton extends StatelessWidget {
 }
 
 class GWBannerCarousel extends StatefulWidget {
-  final List<GWBannerItem> banners;
+  final List<dynamic> banners;
   final double height;
 
   const GWBannerCarousel({
@@ -192,12 +192,11 @@ class _GWBannerCarouselState extends State<GWBannerCarousel> {
   @override
   Widget build(BuildContext context) {
     final banners = widget.banners.isEmpty
-        ? const [
-            GWBannerItem(
-              code: '0',
-              title: 'G-Wealth',
-              subtitle: 'ศูนย์กลางสวัสดิการแห่งรัฐ',
-            ),
+        ? <dynamic>[
+            {
+              'title': 'G-Wealth',
+              'description': 'ศูนย์กลางสวัสดิการแห่งรัฐ',
+            },
           ]
         : widget.banners;
 
@@ -208,9 +207,10 @@ class _GWBannerCarouselState extends State<GWBannerCarousel> {
           itemCount: banners.length,
           itemBuilder: (context, i, _) {
             final b = banners[i];
+            final imageUrl = gwStr(b, 'imageUrl');
+            final title = gwStr(b, 'title', 'G-Wealth');
             return Container(
               width: double.infinity,
-              // ระยะห่างระหว่างการ์ด — ตอนเลื่อนการ์ดจะชิดขอบจอได้
               margin: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(22),
@@ -224,16 +224,16 @@ class _GWBannerCarouselState extends State<GWBannerCarousel> {
                 ],
               ),
               clipBehavior: Clip.antiAlias,
-              child: b.imageUrl.isNotEmpty
+              child: imageUrl.isNotEmpty
                   ? Stack(
                       fit: StackFit.expand,
                       children: [
                         CachedNetworkImage(
-                          imageUrl: b.imageUrl,
+                          imageUrl: imageUrl,
                           fit: BoxFit.cover,
-                          placeholder: (_, __) => _BannerFallback(banner: b),
+                          placeholder: (_, __) => _BannerFallback(item: b),
                           errorWidget: (_, __, ___) =>
-                              _BannerFallback(banner: b),
+                              _BannerFallback(item: b),
                         ),
                         Positioned(
                           left: 0,
@@ -252,7 +252,7 @@ class _GWBannerCarouselState extends State<GWBannerCarousel> {
                               ),
                             ),
                             child: Text(
-                              b.title,
+                              title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: GW.text(
@@ -265,12 +265,11 @@ class _GWBannerCarouselState extends State<GWBannerCarousel> {
                         ),
                       ],
                     )
-                  : _BannerFallback(banner: b),
+                  : _BannerFallback(item: b),
             );
           },
           options: CarouselOptions(
             height: widget.height,
-            // น้อยกว่า 1 = พักมีขอบข้าง แต่เลื่อนแล้วการ์ดชิดขอบจอได้
             viewportFraction: 0.88,
             padEnds: true,
             enableInfiniteScroll: banners.length > 1,
@@ -302,11 +301,13 @@ class _GWBannerCarouselState extends State<GWBannerCarousel> {
 }
 
 class _BannerFallback extends StatelessWidget {
-  final GWBannerItem banner;
-  const _BannerFallback({required this.banner});
+  final dynamic item;
+  const _BannerFallback({required this.item});
 
   @override
   Widget build(BuildContext context) {
+    final title = gwStr(item, 'title', 'G-Wealth');
+    final subtitle = gwHtml(item, 'description');
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
@@ -345,7 +346,7 @@ class _BannerFallback extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  banner.title,
+                  title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: GW.text(
@@ -354,10 +355,10 @@ class _BannerFallback extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                if (banner.subtitle.isNotEmpty) ...[
+                if (subtitle.isNotEmpty) ...[
                   const SizedBox(height: 1),
                   Text(
-                    banner.subtitle,
+                    subtitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: GW.text(
@@ -439,9 +440,9 @@ class GWServiceGrid extends StatelessWidget {
 }
 
 class GWNewsSection extends StatelessWidget {
-  final List<GWNewsFeedItem> items;
+  final List<dynamic> items;
   final VoidCallback? onSeeAll;
-  final ValueChanged<GWNewsFeedItem>? onTap;
+  final ValueChanged<dynamic>? onTap;
 
   const GWNewsSection({
     super.key,
@@ -467,6 +468,9 @@ class GWNewsSection extends StatelessWidget {
           )
         else
           ...list.map((n) {
+            final imageUrl = gwStr(n, 'imageUrl');
+            final title = gwStr(n, 'title');
+            final date = gwDateBe(n);
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: InkWell(
@@ -482,9 +486,9 @@ class GWNewsSection extends StatelessWidget {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      if (n.imageUrl.isNotEmpty)
+                      if (imageUrl.isNotEmpty)
                         CachedNetworkImage(
-                          imageUrl: n.imageUrl,
+                          imageUrl: imageUrl,
                           fit: BoxFit.cover,
                           errorWidget: (_, __, ___) =>
                               Container(color: GW.primaryDeep),
@@ -523,7 +527,7 @@ class GWNewsSection extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                n.title,
+                                title,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: GW.text(
@@ -532,10 +536,10 @@ class GWNewsSection extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                               ),
-                              if (n.date.isNotEmpty) ...[
+                              if (date.isNotEmpty) ...[
                                 const SizedBox(height: 4),
                                 Text(
-                                  n.date,
+                                  date,
                                   style: GW.text(
                                     size: 11,
                                     color: Colors.white.withValues(alpha: 0.85),

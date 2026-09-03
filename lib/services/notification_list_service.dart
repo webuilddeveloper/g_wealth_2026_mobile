@@ -15,13 +15,13 @@ class NotificationListService {
     if (code.isEmpty) return [];
 
     try {
-      final result = await postDio('$server/m/notification/read', {
+      final result = await postDio('${server}m/notification/read', {
         'code': code,
         'skip': skip,
         'limit': limit,
       });
 
-      final raw = result['objectData'];
+      final raw = result?['objectData'];
       final list = raw is List
           ? raw
               .whereType<Map>()

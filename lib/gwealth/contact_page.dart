@@ -1,4 +1,5 @@
 import 'package:LawyerOnline/gwealth/services/gw_content_service.dart';
+import 'package:LawyerOnline/gwealth/services/gw_map.dart';
 import 'package:LawyerOnline/gwealth/theme.dart';
 import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,21 @@ class GWContactPage extends StatefulWidget {
 }
 
 class _GWContactPageState extends State<GWContactPage> {
-  List<GWContactItem> _items = const [];
+  List<dynamic> _items = [];
   bool _loading = true;
+
+  static const _icons = [
+    Icons.support_agent_rounded,
+    Icons.account_balance_outlined,
+    Icons.health_and_safety_outlined,
+    Icons.location_city_outlined,
+  ];
+  static const _colors = [
+    GW.primary,
+    GW.accentPurple,
+    GW.accentBlue,
+    Color(0xFF0D9488),
+  ];
 
   @override
   void initState() {
@@ -112,7 +126,15 @@ class _GWContactPageState extends State<GWContactPage> {
                       ),
                     )
                   else
-                    ..._items.map((c) {
+                    ...List.generate(_items.length, (i) {
+                      final c = _items[i];
+                      final color = _colors[i % _colors.length];
+                      final icon = _icons[i % _icons.length];
+                      final title = gwStr(c, 'title');
+                      final subtitle = gwHtml(c, 'description');
+                      final phone = gwStr(c, 'phone', gwStr(c, 'title'));
+                      final hasPhone =
+                          phone.replaceAll(RegExp(r'[^0-9+]'), '').isNotEmpty;
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Material(
@@ -120,7 +142,7 @@ class _GWContactPageState extends State<GWContactPage> {
                           borderRadius: BorderRadius.circular(16),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(16),
-                            onTap: c.phone.isEmpty ? null : () => _call(c.phone),
+                            onTap: hasPhone ? () => _call(phone) : null,
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(14, 14, 10, 14),
                               child: Row(
@@ -129,10 +151,10 @@ class _GWContactPageState extends State<GWContactPage> {
                                     width: 46,
                                     height: 46,
                                     decoration: BoxDecoration(
-                                      color: c.color.withValues(alpha: 0.12),
+                                      color: color.withValues(alpha: 0.12),
                                       borderRadius: BorderRadius.circular(14),
                                     ),
-                                    child: Icon(c.icon, color: c.color),
+                                    child: Icon(icon, color: color),
                                   ),
                                   const SizedBox(width: 12),
                                   Expanded(
@@ -140,16 +162,16 @@ class _GWContactPageState extends State<GWContactPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(c.title,
+                                        Text(title,
                                             style: GW.text(
                                                 size: 15,
                                                 weight: FontWeight.w700)),
                                         const SizedBox(height: 2),
                                         Text(
-                                          c.subtitle.isNotEmpty
-                                              ? c.subtitle
-                                              : (c.phone.isNotEmpty
-                                                  ? c.phone
+                                          subtitle.isNotEmpty
+                                              ? subtitle
+                                              : (hasPhone
+                                                  ? phone
                                                   : 'ติดต่อหน่วยงาน'),
                                           style: GW.text(
                                               size: 12, color: GW.inkMuted),
@@ -157,9 +179,9 @@ class _GWContactPageState extends State<GWContactPage> {
                                       ],
                                     ),
                                   ),
-                                  if (c.phone.isNotEmpty)
+                                  if (hasPhone)
                                     Icon(Icons.phone_rounded,
-                                        color: c.color, size: 22),
+                                        color: color, size: 22),
                                   const SizedBox(width: 4),
                                 ],
                               ),

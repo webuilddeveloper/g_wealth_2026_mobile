@@ -1,6 +1,7 @@
-import 'package:LawyerOnline/component/appbar.dart';
 import 'package:LawyerOnline/component/dialog_service.dart';
 import 'package:LawyerOnline/component/media_picker_sheet.dart';
+import 'package:LawyerOnline/gwealth/theme.dart';
+import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
 import 'package:LawyerOnline/services/auth_service.dart';
 import 'package:LawyerOnline/shared/api_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -51,10 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final ImagePicker _picker = ImagePicker();
 
-  static const Color _blue = Color(0xFF0262EC);
-  static const Color _bg = Color(0xFFEEF2F5);
-  static const Color _border = Color(0xFFECEDF0);
-  static const Color _errorColor = Color(0xFFD32F2F);
+  static const Color _errorColor = GW.danger;
 
   bool _isEmailValid(String e) =>
       RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(e);
@@ -267,7 +265,8 @@ class _RegisterPageState extends State<RegisterPage> {
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('ok'.tr(), style: const TextStyle(color: _blue))),
+              child: Text('ok'.tr(),
+                  style: const TextStyle(color: GW.primary))),
         ],
       ),
     );
@@ -295,12 +294,31 @@ class _RegisterPageState extends State<RegisterPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(child: _buildAvatarPicker()),
-          const SizedBox(height: 24),
-          Text(
-            'registerClientHint'.tr(),
-            style: GoogleFonts.prompt(
-              fontSize: 13,
-              color: const Color(0xFF666666),
+          const SizedBox(height: 20),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+            decoration: BoxDecoration(
+              color: GW.primarySoft,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(Icons.verified_user_outlined,
+                    color: GW.primary, size: 20),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    'registerClientHint'.tr(),
+                    style: GW.text(
+                      size: 13,
+                      color: GW.ink,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 20),
@@ -335,7 +353,10 @@ class _RegisterPageState extends State<RegisterPage> {
             key: _idCardKey,
             controller: idCardCtrl,
             hint: 'idCardHint'.tr(),
-            icon: Icons.assignment_ind_outlined,
+            icon: Icons.badge_outlined,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            maxLength: 13,
             errorText: idCardError,
             onChanged: (_) => setState(() => idCardError = null),
           ),
@@ -432,13 +453,11 @@ class _RegisterPageState extends State<RegisterPage> {
     );
 
     return Scaffold(
-      backgroundColor: _bg,
-      appBar: appBar(
-        title: "register".tr(),
-        backBtn: true,
-        rightBtn: false,
-        backAction: () => goBack(),
-        rightAction: () => {},
+      backgroundColor: GW.bg,
+      appBar: GWAppBar(
+        title: 'register'.tr(),
+        subtitle: 'registerSubtitle'.tr(),
+        onBack: goBack,
       ),
       body: AppLayout(
         maxWidth: 1000,
@@ -486,10 +505,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Text('loginLink'.tr(),
-                      style: const TextStyle(
-                          fontSize: 13,
-                          color: _blue,
-                          fontWeight: FontWeight.w600)),
+                      style: GW.text(
+                          size: 13,
+                          color: GW.primary,
+                          weight: FontWeight.w600)),
                 ),
               ],
             ),
@@ -508,16 +527,16 @@ class _RegisterPageState extends State<RegisterPage> {
         children: [
           CircleAvatar(
             radius: 45,
-            backgroundColor: const Color(0xFFE8F0FE),
+            backgroundColor: GW.primarySoft,
             backgroundImage: _imageUrl != '' ? NetworkImage(_imageUrl) : null,
             child: _imageUrl == ''
-                ? const Icon(Icons.person_rounded, size: 45, color: _blue)
+                ? const Icon(Icons.person_rounded, size: 45, color: GW.primary)
                 : null,
           ),
           Container(
             padding: const EdgeInsets.all(6),
             decoration:
-                const BoxDecoration(color: _blue, shape: BoxShape.circle),
+                const BoxDecoration(color: GW.primary, shape: BoxShape.circle),
             child: const Icon(Icons.camera_alt_rounded,
                 size: 15, color: Colors.white),
           ),
@@ -558,7 +577,7 @@ class _RegisterPageState extends State<RegisterPage> {
         Checkbox(
           value: value,
           onChanged: onChanged,
-          activeColor: _blue,
+          activeColor: GW.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           side: const BorderSide(color: Color(0xFFD0D0D0)),
         ),
@@ -575,7 +594,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     TextSpan(
                         text: linkLabel,
                         style: const TextStyle(
-                            color: _blue, fontWeight: FontWeight.w600)),
+                            color: GW.primary, fontWeight: FontWeight.w600)),
                   TextSpan(text: 'privacyPolicy'.tr()),
                 ],
               ),
@@ -595,13 +614,14 @@ class _RegisterPageState extends State<RegisterPage> {
         duration: const Duration(milliseconds: 200),
         height: 52,
         decoration: BoxDecoration(
-          color: _isLoading ? _blue.withOpacity(0.7) : _blue,
+          gradient: _isLoading ? null : GW.headerGradient,
+          color: _isLoading ? GW.primaryMute : null,
           borderRadius: BorderRadius.circular(14),
           boxShadow: _isLoading
               ? []
               : [
                   BoxShadow(
-                      color: _blue.withOpacity(.3),
+                      color: GW.primary.withValues(alpha: 0.28),
                       blurRadius: 12,
                       offset: const Offset(0, 5))
                 ],
@@ -633,7 +653,7 @@ class _RegisterPageState extends State<RegisterPage> {
         borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withOpacity(.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 15,
               offset: const Offset(0, 6))
         ],
@@ -643,8 +663,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _sectionLabel(String text) => Text(text,
-      style: GoogleFonts.prompt(
-          fontSize: 13, color: _blue, fontWeight: FontWeight.w500));
+      style: GW.text(
+          size: 13, color: GW.primary, weight: FontWeight.w500));
 
   Widget _buildTextField({
     Key? key,
@@ -682,18 +702,18 @@ class _RegisterPageState extends State<RegisterPage> {
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                    color: errorText != null ? _errorColor : _border)),
+                    color: errorText != null ? _errorColor : GW.border)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                    color: errorText != null ? _errorColor : _border)),
+                    color: errorText != null ? _errorColor : GW.border)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                    color: errorText != null ? _errorColor : _blue,
+                    color: errorText != null ? _errorColor : GW.primary,
                     width: 1.5)),
             fillColor: errorText != null
-                ? _errorColor.withOpacity(0.04)
+                ? _errorColor.withValues(alpha: 0.04)
                 : const Color(0xFFFAFAFA),
             filled: true,
           ),

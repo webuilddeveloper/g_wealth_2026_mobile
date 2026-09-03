@@ -1,4 +1,5 @@
 import 'package:LawyerOnline/gwealth/services/gw_content_service.dart';
+import 'package:LawyerOnline/gwealth/services/gw_map.dart';
 import 'package:LawyerOnline/gwealth/theme.dart';
 import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,11 @@ class GWSurveyPage extends StatefulWidget {
 }
 
 class _GWSurveyPageState extends State<GWSurveyPage> {
-  GWPollQuestion? _question;
+  List<dynamic> _polls = [];
   String? _selectedCode;
   bool _loading = true;
   bool _submitting = false;
 
-  // fallback when API has no poll
   static const _fallback = [
     ('สุขภาพและการรักษา', Icons.local_hospital_outlined),
     ('การศึกษาของบุตร', Icons.school_outlined),
@@ -24,6 +24,22 @@ class _GWSurveyPageState extends State<GWSurveyPage> {
     ('ที่อยู่อาศัย', Icons.home_outlined),
     ('การดูแลผู้สูงอายุ', Icons.elderly_outlined),
   ];
+
+  dynamic get _poll => _polls.isEmpty ? null : _polls.first;
+
+  List<dynamic> get _options {
+    final poll = _poll;
+    if (poll == null) return [];
+    final questions = gwMap(poll)['questions'] ?? gwMap(poll)['questionList'];
+    if (questions is List && questions.isNotEmpty) {
+      final q = gwMap(questions.first);
+      final answers = q['answers'] ?? q['answerList'] ?? [];
+      if (answers is List) return answers;
+    }
+    final answers = gwMap(poll)['answers'] ?? gwMap(poll)['answerList'];
+    if (answers is List) return answers;
+    return [];
+  }
 
   @override
   void initState() {
@@ -33,10 +49,10 @@ class _GWSurveyPageState extends State<GWSurveyPage> {
 
   Future<void> _load() async {
     setState(() => _loading = true);
-    final q = await GWContentService.instance.fetchActiveSurvey();
+    final list = await GWContentService.instance.fetchActiveSurvey();
     if (!mounted) return;
     setState(() {
-      _question = q;
+      _polls = list;
       _loading = false;
     });
   }
@@ -46,19 +62,19 @@ class _GWSurveyPageState extends State<GWSurveyPage> {
     setState(() => _submitting = true);
 
     var ok = false;
-    if (_question != null) {
-      final opt = _question!.options.firstWhere(
-        (o) => o.code == _selectedCode,
-        orElse: () => GWPollOption(code: _selectedCode!, title: _selectedCode!),
+    if (_poll != null && _options.isNotEmpty) {
+      final opt = _options.firstWhere(
+        (o) => gwStr(o, 'code') == _selectedCode,
+        orElse: () => {'code': _selectedCode, 'title': _selectedCode},
       );
       ok = await GWContentService.instance.submitSurveyReply(
-        pollCode: _question!.code,
-        questionCode: _question!.code,
-        answerCode: opt.code,
-        answerTitle: opt.title,
+        pollCode: gwStr(_poll, 'code'),
+        questionCode: gwStr(_poll, 'code'),
+        answerCode: gwStr(opt, 'code'),
+        answerTitle: gwStr(opt, 'title'),
       );
     } else {
-      ok = true; // local fallback
+      ok = true;
     }
 
     if (!mounted) return;
@@ -76,8 +92,10 @@ class _GWSurveyPageState extends State<GWSurveyPage> {
 
   @override
   Widget build(BuildContext context) {
-    final title = _question?.title ?? 'คุณต้องการความช่วยเหลือด้านใดมากที่สุด?';
-    final usingApi = _question != null && _question!.options.isNotEmpty;
+    final title = _poll == null
+        ? 'คุณต้องการความช่วยเหลือด้านใดมากที่สุด?'
+        : gwStr(_poll, 'title', 'คุณต้องการความช่วยเหลือด้านใดมากที่สุด?');
+    final usingApi = _options.isNotEmpty;
 
     return Scaffold(
       backgroundColor: GW.bg,
@@ -118,13 +136,14 @@ class _GWSurveyPageState extends State<GWSurveyPage> {
                   ),
                   const SizedBox(height: 14),
                   if (usingApi)
-                    ..._question!.options.map((o) {
-                      final selected = _selectedCode == o.code;
+                    ..._options.map((o) {
+                      final code = gwStr(o, 'code', gwStr(o, 'title'));
+                      final selected = _selectedCode == code;
                       return _OptionTile(
-                        label: o.title,
+                        label: gwStr(o, 'title'),
                         icon: Icons.radio_button_checked,
                         selected: selected,
-                        onTap: () => setState(() => _selectedCode = o.code),
+                        onTap: () => setState(() => _selectedCode = code),
                       );
                     })
                   else

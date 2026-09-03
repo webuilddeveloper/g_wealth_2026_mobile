@@ -82,7 +82,7 @@ class AuthService {
       debugPrint('[AuthService.login] body=$body');
 
       final response = await http.post(
-        Uri.parse(_loginUrl),
+        Uri.parse(resolveApiUrl(_loginUrl)),
         body: body,
         headers: _headers,
       );
@@ -165,7 +165,7 @@ class AuthService {
       debugPrint('[AuthService.register] body=$body');
 
       final response = await http.post(
-        Uri.parse(_registerUrl),
+        Uri.parse(resolveApiUrl(_registerUrl)),
         body: body,
         headers: _headers,
       );
@@ -233,7 +233,7 @@ class AuthService {
       debugPrint('[AuthService.cancelAccount] body=$body');
 
       final response = await http.post(
-        Uri.parse(_cancelUrl),
+        Uri.parse(resolveApiUrl(_cancelUrl)),
         body: body,
         headers: _headers,
       );
@@ -274,7 +274,7 @@ class AuthService {
       debugPrint('[AuthService.changePassword] body=$body');
 
       final response = await http.post(
-        Uri.parse(_changePasswordUrl),
+        Uri.parse(resolveApiUrl(_changePasswordUrl)),
         body: body,
         headers: _headers,
       );
@@ -366,7 +366,7 @@ class AuthService {
       debugPrint('[AuthService.updateProfile] body=$body');
 
       final response = await http.post(
-        Uri.parse(_updateProfileUrl),
+        Uri.parse(resolveApiUrl(_updateProfileUrl)),
         body: body,
         headers: _headers,
       );

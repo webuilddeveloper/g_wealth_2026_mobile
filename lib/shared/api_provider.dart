@@ -9,6 +9,7 @@ import 'package:http_parser/http_parser.dart';
 import 'dart:io';
 
 import 'package:LawyerOnline/models/user_profile_store.dart';
+import 'package:flutter/foundation.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
@@ -18,8 +19,10 @@ import 'package:path_provider/path_provider.dart';
 const versionName = '1.0.0';
 const versionNumber = 100;
 
-/// G-Wealth API base. Local: http://localhost:7200/
-const server = 'http://line-ddpm.we-builds.com/g-wealth-api/';
+/// G-Wealth API base (เครื่อง Android ใช้ IP ของ Mac ไม่ใช่ localhost)
+const server = 'http://localhost:7201/';
+// const server = 'http://localhost:7200/';
+// const server = 'http://line-ddpm.we-builds.com/g-wealth-api/';
 const serverUpload = 'https://lc.we-builds.com/lc-document/upload';
 const serverOTP = 'https://portal-otp.smsmkt.com/api/';
 
@@ -27,15 +30,17 @@ const serverOTP = 'https://portal-otp.smsmkt.com/api/';
 const sharedApi = '${server}configulation/shared/';
 const registerApi = '${server}m/register/';
 const newsApi = '${server}m/news/';
+const newsReadApi = '${server}m/news/read';
 const newsV2Api = '${server}m/v2/news/';
 const newsGalleryApi = '${server}m/news/gallery/read';
 const knowledgeApi = '${server}m/knowledge/';
 const knowledgeCategoryApi = '${server}m/knowledge/category/';
 const contactApi = '${server}m/contact/';
 const contactCategoryApi = '${server}m/contact/category/';
-const bannerApi = '${server}m/banner/';
-const mainBannerApi = '${server}m/banner/main/read';
-const bannerGalleryApi = '${server}m/banner/gallery/read';
+const bannerApi = '${server}banner/';
+const bannerReadApi = '${server}banner/read';
+const mainBannerApi = bannerReadApi;
+const bannerGalleryApi = '${server}banner/gallery/read';
 const aboutUsApi = '${server}m/aboutus/';
 const notificationApi = '${server}m/v2/notification/';
 const welfareApi = '${server}m/welfare/';
@@ -48,6 +53,10 @@ const profileReadApi = '${server}m/v2/register/read';
 const organizationImageReadApi = '${server}m/v2/organization/image/read';
 const mainPopupHomeApi = '${server}m/MainPopup/';
 const forceAdsApi = '${server}m/ForceAds/';
+
+/// บนมือถือจริงใช้ localhost ผ่าน `adb reverse tcp:7200 tcp:7200`
+/// (อย่าแปลงเป็น 10.0.2.2 — ค่านั้นใช้ได้เฉพาะ Android emulator)
+String resolveApiUrl(String url) => url;
 
 Map<String, String> _jsonHeaders({bool includeAuth = true}) {
   final headers = {
@@ -315,12 +324,38 @@ Future<dynamic> postDio(String url, dynamic criteria) async {
     criteria = {'profileCode': profileCode, ...criteria};
   }
   Dio dio = _createDio();
+  dio.options.connectTimeout = const Duration(seconds: 12);
+  dio.options.receiveTimeout = const Duration(seconds: 20);
   try {
-    var response = await dio.post(url, data: criteria);
+    final resolved = resolveApiUrl(url);
+    var response = await dio.post(resolved, data: criteria);
     return Future.value(response.data);
-  } on DioError catch (e) {
+  } on DioException catch (e) {
+    debugPrint(
+        'postDio $url → ${e.type} ${e.response?.statusCode} ${e.message}');
+    if (url != resolveApiUrl(url)) {
+      debugPrint('postDio resolved ${resolveApiUrl(url)}');
+    }
     return null;
   }
+}
+
+/// ดึง list จาก response มาตรฐานของ API (objectData / jsonData)
+List<dynamic> extractObjectData(dynamic result) {
+  if (result == null) return const [];
+  if (result is List) return result;
+  if (result is! Map) return const [];
+  final map = Map<String, dynamic>.from(result);
+  final od = map['objectData'] ?? map['ObjectData'];
+  if (od is List) return od;
+  final jd = map['jsonData'] ?? map['JsonData'];
+  if (jd is String && jd.trim().isNotEmpty && jd.trim() != 'null') {
+    try {
+      final decoded = json.decode(jd);
+      if (decoded is List) return decoded;
+    } catch (_) {}
+  }
+  return const [];
 }
 
 Future<dynamic> postDioCategory(String url, dynamic criteria) async {
@@ -332,7 +367,7 @@ Future<dynamic> postDioCategory(String url, dynamic criteria) async {
   }
 
   Dio dio = _createDio();
-  var response = await dio.post(url, data: criteria);
+  var response = await dio.post(resolveApiUrl(url), data: criteria);
 
   List<dynamic> list = [
     {'code': "", 'title': 'ทั้งหมด'}
@@ -349,7 +384,7 @@ Future<dynamic> postDioMessage(String url, dynamic criteria) async {
     criteria = {'profileCode': profileCode, ...criteria};
   }
   Dio dio = _createDio();
-  var response = await dio.post(url, data: criteria);
+  var response = await dio.post(resolveApiUrl(url), data: criteria);
   return Future.value(response.data['objectData']);
 }
 

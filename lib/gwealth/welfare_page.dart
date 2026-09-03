@@ -1,6 +1,7 @@
 import 'package:LawyerOnline/gwealth/data/mock_data.dart';
 import 'package:LawyerOnline/gwealth/rights_page.dart';
 import 'package:LawyerOnline/gwealth/services/gw_content_service.dart';
+import 'package:LawyerOnline/gwealth/services/gw_map.dart';
 import 'package:LawyerOnline/gwealth/theme.dart';
 import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class GWWelfarePage extends StatefulWidget {
 }
 
 class _GWWelfarePageState extends State<GWWelfarePage> {
-  List<GWBenefit> _benefits = GWData.benefits;
+  List<dynamic> _benefits = [];
   bool _loading = true;
 
   @override
@@ -281,16 +282,21 @@ class _LifeStageCard extends StatelessWidget {
 }
 
 class _BenefitTile extends StatelessWidget {
-  final GWBenefit benefit;
+  final dynamic benefit;
   const _BenefitTile({required this.benefit});
 
+  String get _status =>
+      gwStr(benefit, 'eligibilityStatus', gwStr(benefit, 'status', 'eligible'));
+
   Color get _statusColor {
-    switch (benefit.status) {
+    switch (_status) {
       case 'eligible':
+      case 'A':
         return GW.success;
       case 'claimed':
         return GW.accentBlue;
       case 'pending':
+      case 'P':
         return GW.warning;
       case 'hidden':
         return GW.accentPurple;
@@ -300,17 +306,19 @@ class _BenefitTile extends StatelessWidget {
   }
 
   String get _statusLabel {
-    switch (benefit.status) {
+    switch (_status) {
       case 'eligible':
+      case 'A':
         return 'มีสิทธิ์';
       case 'claimed':
         return 'ใช้สิทธิ์แล้ว';
       case 'pending':
+      case 'P':
         return 'รอตรวจสอบ';
       case 'hidden':
         return 'สิทธิ์ที่ซ่อนอยู่';
       default:
-        return benefit.status;
+        return _status;
     }
   }
 
@@ -326,7 +334,7 @@ class _BenefitTile extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(benefit.title,
+                child: Text(gwStr(benefit, 'title'),
                     style: GW.text(size: 14, weight: FontWeight.w700)),
               ),
               Container(
@@ -345,13 +353,15 @@ class _BenefitTile extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          Text(benefit.agency,
-              style: GW.text(size: 12, color: GW.inkMuted)),
+          Text(
+            gwStr(benefit, 'agency', gwStr(benefit, 'category', 'หน่วยงานรัฐ')),
+            style: GW.text(size: 12, color: GW.inkMuted),
+          ),
           const SizedBox(height: 6),
-          Text(benefit.description,
+          Text(gwHtml(benefit, 'description'),
               style: GW.text(size: 13, color: GW.ink)),
           const SizedBox(height: 8),
-          Text(benefit.amount,
+          Text(gwStr(benefit, 'amount'),
               style: GW.text(
                   size: 13, weight: FontWeight.w700, color: GW.primary)),
         ],

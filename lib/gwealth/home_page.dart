@@ -35,8 +35,8 @@ class GWHomePage extends StatefulWidget {
 class _GWHomePageState extends State<GWHomePage> {
   String name = '';
   String imageUrl = '';
-  List<GWBannerItem> _banners = const [];
-  List<GWNewsFeedItem> _news = const [];
+  List<dynamic> _banners = [];
+  List<dynamic> _news = [];
   bool _loadingContent = true;
 
   /// ทับช่วงโค้งนูนของ header ตาม mockup (~ครึ่งบนของการ์ดทับชมพู)
@@ -78,8 +78,8 @@ class _GWHomePageState extends State<GWHomePage> {
     ]);
     if (!mounted) return;
     setState(() {
-      _banners = results[0] as List<GWBannerItem>;
-      _news = results[1] as List<GWNewsFeedItem>;
+      _banners = results[0];
+      _news = results[1];
       _loadingContent = false;
     });
   }
@@ -316,8 +316,7 @@ class _GWHomePageState extends State<GWHomePage> {
                               onTap: (n) {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (_) =>
-                                        GWNewsPage(highlightId: n.id),
+                                    builder: (_) => GWNewsDetailPage(item: n),
                                   ),
                                 );
                               },

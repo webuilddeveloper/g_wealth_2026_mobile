@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/component/appbar.dart';
-import 'package:LawyerOnline/shared/responsive/app_layout.dart';
+import 'package:gwealth/component/appbar.dart';
+import 'package:gwealth/shared/responsive/app_layout.dart';
 class TermsPage extends StatelessWidget {
   const TermsPage({super.key});
 

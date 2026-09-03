@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http_parser/http_parser.dart';
 import 'dart:io';
 
-import 'package:LawyerOnline/models/user_profile_store.dart';
+import 'package:gwealth/models/user_profile_store.dart';
 import 'package:flutter/foundation.dart';
 
 // ignore: depend_on_referenced_packages

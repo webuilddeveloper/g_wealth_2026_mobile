@@ -1,4 +1,4 @@
-import 'package:LawyerOnline/services/notification_list_service.dart';
+import 'package:gwealth/services/notification_list_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

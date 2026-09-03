@@ -1,11 +1,11 @@
-import 'package:LawyerOnline/component/loading_service.dart';
-import 'package:LawyerOnline/gwealth/theme.dart';
-import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
-import 'package:LawyerOnline/notification-detail.dart';
-import 'package:LawyerOnline/services/notification_list_service.dart';
-import 'package:LawyerOnline/services/notification_navigation_service.dart';
-import 'package:LawyerOnline/shared/api_provider.dart';
-import 'package:LawyerOnline/shared/notification_store.dart';
+import 'package:gwealth/component/loading_service.dart';
+import 'package:gwealth/gwealth/theme.dart';
+import 'package:gwealth/gwealth/widgets/gw_app_bar.dart';
+import 'package:gwealth/notification-detail.dart';
+import 'package:gwealth/services/notification_list_service.dart';
+import 'package:gwealth/services/notification_navigation_service.dart';
+import 'package:gwealth/shared/api_provider.dart';
+import 'package:gwealth/shared/notification_store.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

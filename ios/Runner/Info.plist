@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>LC Online</string>
+	<string>G-Wealth</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,17 +15,44 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>LC Online</string>
+	<string>G-Wealth</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>line</string>
+		<string>lineauth2</string>
+		<string>line3rdp</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>แอปนี้ต้องใช้ Bluetooth สำหรับการเชื่อมต่อเสียงระหว่างวิดีโอคอล</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>แอปนี้ต้องใช้ Bluetooth สำหรับการเชื่อมต่อเสียงระหว่างวิดีโอคอล</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_dartobservatory._tcp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Lawyer App wants to use your local network</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>แอพต้องการเข้าถึงตำแหน่งของคุณเพื่อให้สามารถค้นหาทนายใกล้คุณได้</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>แอพต้องใช้ตำแหน่งของคุณเพื่อแสดงแผนที่</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
@@ -49,45 +76,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>line</string>
-		<string>lineauth2</string>
-		<string>line3rdp</string>
-	</array>
-
-	<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-				</array>
-			</dict>
-		</array>
-	<key>NSBonjourServices</key>
-	<array>
-	<string>_dartobservatory._tcp</string>
-	</array>
-
-	<key>NSMicrophoneUsageDescription</key>
-	<string>แอปนี้ต้องใช้ไมโครโฟนสำหรับการสนทนาและให้คำปรึกษากฎหมายผ่านเสียง</string>
-
-	<key>NSCameraUsageDescription</key>
-	<string>แอปใช้กล้องสำหรับการยืนยันตัวตนหรือวิดีโอคอล</string>
-
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>แอปใช้เพื่ออัปโหลดเอกสารหรือรูปภาพประกอบคดี</string>
-
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>แอพต้องการเข้าถึงตำแหน่งของคุณเพื่อให้สามารถค้นหาทนายใกล้คุณได้</string>
-
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>แอปนี้ต้องใช้ Bluetooth สำหรับการเชื่อมต่อเสียงระหว่างวิดีโอคอล</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>แอปนี้ต้องใช้ Bluetooth สำหรับการเชื่อมต่อเสียงระหว่างวิดีโอคอล</string>
-<key>NSLocalNetworkUsageDescription</key>
-<string>Lawyer App wants to use your local network</string>
 </dict>
 </plist>

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:LawyerOnline/models/user_model.dart';
-import 'package:LawyerOnline/repositories/register_account_repository.dart';
+import 'package:gwealth/models/user_model.dart';
+import 'package:gwealth/repositories/register_account_repository.dart';
 
 // ══════════════════════════════════════════════════════════════════════
 //  _SafeStorage

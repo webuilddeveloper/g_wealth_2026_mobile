@@ -1,10 +1,10 @@
-import 'package:LawyerOnline/component/appbar.dart';
-import 'package:LawyerOnline/component/dialog_service.dart';
-import 'package:LawyerOnline/component/loading_service.dart';
-import 'package:LawyerOnline/shared/notification_settings_store.dart';
+import 'package:gwealth/component/appbar.dart';
+import 'package:gwealth/component/dialog_service.dart';
+import 'package:gwealth/component/loading_service.dart';
+import 'package:gwealth/shared/notification_settings_store.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/shared/responsive/app_layout.dart';
+import 'package:gwealth/shared/responsive/app_layout.dart';
 
 class NotificationSettingPage extends StatefulWidget {
   const NotificationSettingPage({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:LawyerOnline/shared/api_provider.dart';
-import 'package:LawyerOnline/models/user_profile_store.dart';
+import 'package:gwealth/shared/api_provider.dart';
+import 'package:gwealth/models/user_profile_store.dart';
 
 class FcmService {
   static Future<void> registerFcmToken(String code) async {

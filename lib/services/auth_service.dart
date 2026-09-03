@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:LawyerOnline/models/auth_session.dart';
-import 'package:LawyerOnline/shared/api_provider.dart';
+import 'package:gwealth/models/auth_session.dart';
+import 'package:gwealth/shared/api_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:LawyerOnline/models/user_model.dart';
+import 'package:gwealth/models/user_model.dart';
 
 /// อีเมลซ้ำ — server ส่งกลับมา
 class EmailDuplicateException implements Exception {

@@ -1,5 +1,5 @@
-import 'package:LawyerOnline/shared/responsive/res_layout.dart';
-import 'package:LawyerOnline/shared/responsive/responsive_values.dart';
+import 'package:gwealth/shared/responsive/res_layout.dart';
+import 'package:gwealth/shared/responsive/responsive_values.dart';
 import 'package:flutter/material.dart';
 
 // ══════════════════════════════════════════════════════════

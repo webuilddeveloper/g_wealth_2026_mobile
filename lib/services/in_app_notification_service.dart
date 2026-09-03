@@ -1,8 +1,8 @@
-import 'package:LawyerOnline/shared/notification_settings_store.dart';
+import 'package:gwealth/shared/notification_settings_store.dart';
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/main.dart';
-import 'package:LawyerOnline/services/notification_service.dart';
-import 'package:LawyerOnline/widgets/top_notification_banner.dart';
+import 'package:gwealth/main.dart';
+import 'package:gwealth/services/notification_service.dart';
+import 'package:gwealth/widgets/top_notification_banner.dart';
 
 class InAppNotificationService {
   static OverlayEntry? _entry;

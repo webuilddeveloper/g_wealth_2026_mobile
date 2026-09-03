@@ -1,4 +1,4 @@
-import 'package:LawyerOnline/shared/responsive/res_layout.dart';
+import 'package:gwealth/shared/responsive/res_layout.dart';
 import 'package:flutter/material.dart';
 
 // ══════════════════════════════════════════════════════════

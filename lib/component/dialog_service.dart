@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:LawyerOnline/component/loading_service.dart';
-import 'package:LawyerOnline/shared/responsive/responsive_values.dart';
+import 'package:gwealth/component/loading_service.dart';
+import 'package:gwealth/shared/responsive/responsive_values.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class DialogService {

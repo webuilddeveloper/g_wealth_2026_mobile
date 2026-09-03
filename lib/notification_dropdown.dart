@@ -1,7 +1,7 @@
-import 'package:LawyerOnline/notification_desktop_detail.dart';
-import 'package:LawyerOnline/notification.dart';
-import 'package:LawyerOnline/services/notification_list_service.dart';
-import 'package:LawyerOnline/services/notification_navigation_service.dart';
+import 'package:gwealth/notification_desktop_detail.dart';
+import 'package:gwealth/notification.dart';
+import 'package:gwealth/services/notification_list_service.dart';
+import 'package:gwealth/services/notification_navigation_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

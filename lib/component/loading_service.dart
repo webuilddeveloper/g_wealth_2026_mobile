@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/shared/app_typography.dart';
+import 'package:gwealth/shared/app_typography.dart';
 
 // ─────────────────────────────────────────────
 // App Loading — ใช้ทั่วแอป (สีหลัก #0262EC, Prompt font)

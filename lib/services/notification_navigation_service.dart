@@ -1,6 +1,6 @@
-import 'package:LawyerOnline/main.dart' show navigatorKey;
-import 'package:LawyerOnline/models/user_profile_store.dart';
-import 'package:LawyerOnline/notification-detail.dart';
+import 'package:gwealth/main.dart' show navigatorKey;
+import 'package:gwealth/models/user_profile_store.dart';
+import 'package:gwealth/notification-detail.dart';
 import 'package:flutter/material.dart';
 
 /// นำทางจากการแจ้งเตือนไปหน้ารายละเอียด (G-Wealth)

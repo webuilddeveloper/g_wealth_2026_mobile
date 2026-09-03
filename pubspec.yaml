@@ -1,4 +1,4 @@
-name: GWealth
+name: gwealth
 description: "G-Wealth"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -23,11 +23,12 @@ environment:
 
 
 flutter_launcher_icons:
-  android: true  # เปลี่ยนเป็น true หรือชื่อแพ็คเกจ
+  android: true
   ios: true
-  image_path: "assets/icons/logo.png"  # ตรงกับเส้นทางที่คุณระบุ
+  image_path: "assets/icons/logo.png"
   adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/icons/logo.png"
+  remove_alpha_ios: true
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions

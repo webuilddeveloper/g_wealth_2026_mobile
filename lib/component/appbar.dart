@@ -1,5 +1,5 @@
-import 'package:LawyerOnline/gwealth/theme.dart';
-import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
+import 'package:gwealth/gwealth/theme.dart';
+import 'package:gwealth/gwealth/widgets/gw_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

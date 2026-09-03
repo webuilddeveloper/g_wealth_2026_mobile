@@ -1,13 +1,13 @@
-import 'package:LawyerOnline/component/dialog_service.dart';
-import 'package:LawyerOnline/gwealth/theme.dart';
-import 'package:LawyerOnline/login.dart';
-import 'package:LawyerOnline/menu.dart';
-import 'package:LawyerOnline/models/user_profile_store.dart';
-import 'package:LawyerOnline/notification.dart';
-import 'package:LawyerOnline/shared/notification_store.dart';
-import 'package:LawyerOnline/shared/responsive/responsive_values.dart';
-import 'package:LawyerOnline/widgets/notification_badge.dart';
-import 'package:LawyerOnline/widgets/profile/profile_avatar.dart';
+import 'package:gwealth/component/dialog_service.dart';
+import 'package:gwealth/gwealth/theme.dart';
+import 'package:gwealth/login.dart';
+import 'package:gwealth/menu.dart';
+import 'package:gwealth/models/user_profile_store.dart';
+import 'package:gwealth/notification.dart';
+import 'package:gwealth/shared/notification_store.dart';
+import 'package:gwealth/shared/responsive/responsive_values.dart';
+import 'package:gwealth/widgets/notification_badge.dart';
+import 'package:gwealth/widgets/profile/profile_avatar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

@@ -1,17 +1,17 @@
-import 'package:LawyerOnline/component/dialog_service.dart';
-import 'package:LawyerOnline/component/loading_service.dart';
-import 'package:LawyerOnline/component/media_picker_sheet.dart';
-import 'package:LawyerOnline/shared/api_provider.dart';
-import 'package:LawyerOnline/shared/app_typography.dart';
+import 'package:gwealth/component/dialog_service.dart';
+import 'package:gwealth/component/loading_service.dart';
+import 'package:gwealth/component/media_picker_sheet.dart';
+import 'package:gwealth/shared/api_provider.dart';
+import 'package:gwealth/shared/app_typography.dart';
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/component/appbar.dart';
+import 'package:gwealth/component/appbar.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:LawyerOnline/services/auth_service.dart';
-import 'package:LawyerOnline/models/user_profile_store.dart';
+import 'package:gwealth/services/auth_service.dart';
+import 'package:gwealth/models/user_profile_store.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:LawyerOnline/shared/responsive/app_layout.dart';
+import 'package:gwealth/shared/responsive/app_layout.dart';
 
 class ProfileFormPage extends StatefulWidget {
   const ProfileFormPage({super.key});

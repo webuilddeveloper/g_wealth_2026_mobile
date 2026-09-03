@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/models/user_profile_store.dart';
-import 'package:LawyerOnline/shared/api_provider.dart';
+import 'package:gwealth/models/user_profile_store.dart';
+import 'package:gwealth/shared/api_provider.dart';
 
 class NotificationStore extends ChangeNotifier {
   NotificationStore._internal();

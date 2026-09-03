@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/gwealth/theme.dart';
+import 'package:gwealth/gwealth/theme.dart';
 
 class GWServiceItem {
   final String id;

@@ -1,9 +1,9 @@
-import 'package:LawyerOnline/gwealth/data/mock_data.dart';
-import 'package:LawyerOnline/gwealth/rights_page.dart';
-import 'package:LawyerOnline/gwealth/services/gw_content_service.dart';
-import 'package:LawyerOnline/gwealth/services/gw_map.dart';
-import 'package:LawyerOnline/gwealth/theme.dart';
-import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
+import 'package:gwealth/gwealth/data/mock_data.dart';
+import 'package:gwealth/gwealth/rights_page.dart';
+import 'package:gwealth/gwealth/services/gw_content_service.dart';
+import 'package:gwealth/gwealth/services/gw_map.dart';
+import 'package:gwealth/gwealth/theme.dart';
+import 'package:gwealth/gwealth/widgets/gw_app_bar.dart';
 import 'package:flutter/material.dart';
 
 /// สวัสดิการของฉัน — เส้นทางสิทธิ์แห่งชีวิต + สิทธิ์จาก API

@@ -1,17 +1,17 @@
-import 'package:LawyerOnline/component/dialog_service.dart';
-import 'package:LawyerOnline/component/media_picker_sheet.dart';
-import 'package:LawyerOnline/gwealth/theme.dart';
-import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
-import 'package:LawyerOnline/services/auth_service.dart';
-import 'package:LawyerOnline/shared/api_provider.dart';
+import 'package:gwealth/component/dialog_service.dart';
+import 'package:gwealth/component/media_picker_sheet.dart';
+import 'package:gwealth/gwealth/theme.dart';
+import 'package:gwealth/gwealth/widgets/gw_app_bar.dart';
+import 'package:gwealth/services/auth_service.dart';
+import 'package:gwealth/shared/api_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:LawyerOnline/login.dart';
-import 'package:LawyerOnline/shared/responsive/app_layout.dart';
-import 'package:LawyerOnline/shared/responsive/res_layout.dart';
+import 'package:gwealth/login.dart';
+import 'package:gwealth/shared/responsive/app_layout.dart';
+import 'package:gwealth/shared/responsive/res_layout.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

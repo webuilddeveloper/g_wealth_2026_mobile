@@ -1,12 +1,12 @@
-import 'package:LawyerOnline/component/dialog_service.dart';
+import 'package:gwealth/component/dialog_service.dart';
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/component/appbar.dart';
+import 'package:gwealth/component/appbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import 'package:LawyerOnline/menu.dart';
-import 'package:LawyerOnline/services/auth_service.dart';
-import 'package:LawyerOnline/models/user_profile_store.dart';
-import 'package:LawyerOnline/shared/responsive/app_layout.dart';
+import 'package:gwealth/menu.dart';
+import 'package:gwealth/services/auth_service.dart';
+import 'package:gwealth/models/user_profile_store.dart';
+import 'package:gwealth/shared/responsive/app_layout.dart';
 
 class DeleteAccountPage extends StatefulWidget {
   const DeleteAccountPage({super.key});

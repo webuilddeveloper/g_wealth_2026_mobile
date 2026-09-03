@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:LawyerOnline/models/user_model.dart';
-import 'package:LawyerOnline/models/user_profile_store.dart';
-import 'package:LawyerOnline/shared/api_provider.dart';
+import 'package:gwealth/models/user_model.dart';
+import 'package:gwealth/models/user_profile_store.dart';
+import 'package:gwealth/shared/api_provider.dart';
 import 'package:http/http.dart' as http;
 
 abstract class RegisterAccountRepository {

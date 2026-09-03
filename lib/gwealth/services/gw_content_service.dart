@@ -1,5 +1,5 @@
-import 'package:LawyerOnline/gwealth/services/home_content_service.dart';
-import 'package:LawyerOnline/shared/api_provider.dart';
+import 'package:gwealth/gwealth/services/home_content_service.dart';
+import 'package:gwealth/shared/api_provider.dart';
 import 'package:flutter/foundation.dart';
 
 /// ดึงเนื้อหา G-Wealth จาก API เป็น List<dynamic>

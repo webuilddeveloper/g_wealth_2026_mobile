@@ -1,8 +1,8 @@
-import 'package:LawyerOnline/component/gallery_view.dart';
-import 'package:LawyerOnline/gwealth/services/gw_content_service.dart';
-import 'package:LawyerOnline/gwealth/services/gw_map.dart';
-import 'package:LawyerOnline/gwealth/theme.dart';
-import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
+import 'package:gwealth/component/gallery_view.dart';
+import 'package:gwealth/gwealth/services/gw_content_service.dart';
+import 'package:gwealth/gwealth/services/gw_map.dart';
+import 'package:gwealth/gwealth/theme.dart';
+import 'package:gwealth/gwealth/widgets/gw_app_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

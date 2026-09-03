@@ -38,7 +38,20 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+
+    # Xcode 15+/26: BoringSSL-GRPC ใช้ flag ที่ทำให้ compile พัง
+    if target.name == 'BoringSSL-GRPC'
+      target.source_build_phase.files.each do |file|
+        if file.settings && file.settings['COMPILER_FLAGS']
+          flags = file.settings['COMPILER_FLAGS'].split
+          flags.reject! { |flag| flag == '-GCC_WARN_INHIBIT_ALL_WARNINGS' }
+          file.settings['COMPILER_FLAGS'] = flags.join(' ')
+        end
+      end
+    end
+
     target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
       config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
         '$(inherited)',
         ## dart: PermissionGroup.camera
@@ -49,9 +62,24 @@ post_install do |installer|
         'PERMISSION_PHOTOS=1',
         ## dart: PermissionGroup.location
         'PERMISSION_LOCATION=1',
-        ## dart: PermissionGroup.bluetooth — ตาม 100ms official docs
+        ## dart: PermissionGroup.bluetooth
         'PERMISSION_BLUETOOTH=1',
       ]
+
+      # Xcode 16+/26: ปิด Explicit Modules กัน PCM / header lookup พังตอน Archive
+      config.build_settings['CLANG_ENABLE_EXPLICIT_MODULES'] = 'NO'
+
+      # gRPC: ให้ #include "src/core/..." หาไฟล์เจอ
+      if ['gRPC-Core', 'gRPC-C++'].include?(target.name)
+        config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
+        config.build_settings['HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/gRPC-Core"'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/gRPC-C++"'
+        config.build_settings['USER_HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
+        config.build_settings['USER_HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/gRPC-Core"'
+        config.build_settings['USER_HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/gRPC-C++"'
+        config.build_settings['USE_HEADERMAP'] = 'NO'
+        config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
+      end
     end
   end
 end

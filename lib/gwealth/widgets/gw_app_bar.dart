@@ -1,4 +1,4 @@
-import 'package:LawyerOnline/gwealth/theme.dart';
+import 'package:gwealth/gwealth/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

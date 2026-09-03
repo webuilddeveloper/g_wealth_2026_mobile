@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/gwealth/theme.dart';
-import 'package:LawyerOnline/menu.dart';
-import 'package:LawyerOnline/models/user_profile_store.dart';
-import 'package:LawyerOnline/pdpa_consent_page.dart';
-import 'package:LawyerOnline/services/pdpa_service.dart';
+import 'package:gwealth/gwealth/theme.dart';
+import 'package:gwealth/menu.dart';
+import 'package:gwealth/models/user_profile_store.dart';
+import 'package:gwealth/pdpa_consent_page.dart';
+import 'package:gwealth/services/pdpa_service.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -57,7 +57,7 @@ class _SplashPageState extends State<SplashPage>
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xFFFFF5FA), Colors.white, Color(0xFFF0F7FF)],
+              colors: [Color(0xFFFFF5FA), Colors.white, Color(0xFFFFE8F3)],
             ),
           ),
           child: FadeTransition(
@@ -69,21 +69,24 @@ class _SplashPageState extends State<SplashPage>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: 108,
-                      height: 108,
+                      width: 120,
+                      height: 120,
                       decoration: BoxDecoration(
+                        color: Colors.white,
                         shape: BoxShape.circle,
-                        gradient: GW.headerGradient,
                         boxShadow: [
                           BoxShadow(
-                            color: GW.primary.withOpacity(0.35),
+                            color: GW.primary.withValues(alpha: 0.28),
                             blurRadius: 24,
                             offset: const Offset(0, 10),
                           ),
                         ],
                       ),
-                      child: const Icon(Icons.hub_outlined,
-                          color: Colors.white, size: 52),
+                      padding: const EdgeInsets.all(14),
+                      child: Image.asset(
+                        'assets/icons/logo.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -114,15 +117,19 @@ class _SplashPageState extends State<SplashPage>
     final userType = UserProfileStore.instance.userType;
     if (!mounted) return;
 
-    final accepted = await PdpaService.hasAcceptedPdpa();
-    if (!accepted) {
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => PdpaConsentPage(
-            onAccepted: () => Navigator.of(context).pop(),
+    // ชั่วคราว: ปิดหน้ายินยอม PDPA ไว้ก่อน (อย่าลบโค้ด — เปิดกลับได้ด้วย _showPdpaConsent)
+    const showPdpaConsent = false;
+    if (showPdpaConsent) {
+      final accepted = await PdpaService.hasAcceptedPdpa();
+      if (!accepted) {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => PdpaConsentPage(
+              onAccepted: () => Navigator.of(context).pop(),
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
 
     if (!mounted) return;

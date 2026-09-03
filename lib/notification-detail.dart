@@ -1,8 +1,8 @@
-import 'package:LawyerOnline/services/notification_navigation_service.dart';
-import 'package:LawyerOnline/shared/app_typography.dart';
+import 'package:gwealth/services/notification_navigation_service.dart';
+import 'package:gwealth/shared/app_typography.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:LawyerOnline/component/appbar.dart';
+import 'package:gwealth/component/appbar.dart';
 
 class NotificationDetailPage extends StatelessWidget {
   final Map data;

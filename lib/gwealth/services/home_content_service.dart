@@ -1,4 +1,4 @@
-import 'package:LawyerOnline/shared/api_provider.dart';
+import 'package:gwealth/shared/api_provider.dart';
 import 'package:flutter/foundation.dart';
 
 /// ดึงแบนเนอร์ + ข่าวประชาสัมพันธ์จาก API เป็น List<dynamic>

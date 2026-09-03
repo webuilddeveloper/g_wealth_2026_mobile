@@ -1,4 +1,4 @@
-import 'package:LawyerOnline/models/user_model.dart';
+import 'package:gwealth/models/user_model.dart';
 
 class AuthSession {
   const AuthSession({

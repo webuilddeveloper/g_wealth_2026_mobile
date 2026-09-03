@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:LawyerOnline/shared/api_provider.dart';
+import 'package:gwealth/shared/api_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 

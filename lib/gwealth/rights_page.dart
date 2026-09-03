@@ -1,7 +1,7 @@
-import 'package:LawyerOnline/gwealth/data/mock_data.dart';
-import 'package:LawyerOnline/gwealth/theme.dart';
-import 'package:LawyerOnline/gwealth/widgets/gw_app_bar.dart';
-import 'package:LawyerOnline/gwealth/widgets/home_sections.dart';
+import 'package:gwealth/gwealth/data/mock_data.dart';
+import 'package:gwealth/gwealth/theme.dart';
+import 'package:gwealth/gwealth/widgets/gw_app_bar.dart';
+import 'package:gwealth/gwealth/widgets/home_sections.dart';
 import 'package:flutter/material.dart';
 
 /// ระบบวิเคราะห์สิทธิเฉพาะบุคคล + E-KYC mock

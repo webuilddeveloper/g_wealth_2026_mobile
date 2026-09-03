@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:LawyerOnline/models/user_profile_store.dart';
-import 'package:LawyerOnline/services/in_app_notification_service.dart';
-import 'package:LawyerOnline/services/notification_navigation_service.dart';
-import 'package:LawyerOnline/services/notification_service.dart';
-import 'package:LawyerOnline/shared/notification_settings_store.dart';
-import 'package:LawyerOnline/shared/notification_store.dart';
-import 'package:LawyerOnline/splash.dart';
+import 'package:gwealth/models/user_profile_store.dart';
+import 'package:gwealth/services/in_app_notification_service.dart';
+import 'package:gwealth/services/notification_navigation_service.dart';
+import 'package:gwealth/services/notification_service.dart';
+import 'package:gwealth/shared/notification_settings_store.dart';
+import 'package:gwealth/shared/notification_store.dart';
+import 'package:gwealth/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

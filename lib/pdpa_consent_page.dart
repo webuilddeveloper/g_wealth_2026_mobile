@@ -1,7 +1,7 @@
-import 'package:LawyerOnline/privacy-policy.dart';
-import 'package:LawyerOnline/services/pdpa_service.dart';
-import 'package:LawyerOnline/shared/app_typography.dart';
-import 'package:LawyerOnline/terms.dart';
+import 'package:gwealth/privacy-policy.dart';
+import 'package:gwealth/services/pdpa_service.dart';
+import 'package:gwealth/shared/app_typography.dart';
+import 'package:gwealth/terms.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

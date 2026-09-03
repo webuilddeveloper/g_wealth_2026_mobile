@@ -26,7 +26,21 @@ String gwCategory(dynamic item, [String fallback = '']) {
     final title = gwStr(list.first, 'title');
     if (title.isNotEmpty) return title;
   }
-  return gwStr(item, 'category', fallback);
+  final category = gwStr(item, 'category');
+  if (category.isEmpty) return fallback;
+  // ฟิลด์ category จาก API มักเป็นรหัส — ไม่โชว์รหัสเป็นชื่อประเภท
+  if (_looksLikeCategoryCode(category)) return fallback;
+  return category;
+}
+
+bool _looksLikeCategoryCode(String value) {
+  final s = value.trim();
+  if (s.isEmpty) return false;
+  // มีตัวอักษรไทย = ชื่อประเภทแล้ว
+  if (RegExp(r'[ก-๙]').hasMatch(s)) return false;
+  if (s.contains(' ')) return false;
+  // รหัสมักยาวและเป็นเลข/อังกฤษ
+  return s.length >= 8 || RegExp(r'^[0-9a-fA-F-]+$').hasMatch(s);
 }
 
 /// วันที่ข่าว/เนื้อหา เป็น วว/ดด/ปปปป (พ.ศ.)

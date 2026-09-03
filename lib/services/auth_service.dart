@@ -46,11 +46,11 @@ class AccountBlockedException implements Exception {
 }
 
 class AuthService {
-  static const String _loginUrl = '$server/m/register/login';
-  static const String _registerUrl = '$server/m/register/create';
-  static const String _cancelUrl = '$server/m/register/cancel';
-  static const String _changePasswordUrl = '$server/m/register/change';
-  static const String _updateProfileUrl = '$server/m/register/update';
+  static const String _loginUrl = '${server}m/register/login';
+  static const String _registerUrl = '${server}m/register/create';
+  static const String _cancelUrl = '${server}m/register/cancel';
+  static const String _changePasswordUrl = '${server}m/register/change';
+  static const String _updateProfileUrl = '${server}m/register/update';
 
   static const Map<String, String> _headers = {
     'Accept': 'application/json',

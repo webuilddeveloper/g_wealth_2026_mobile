@@ -38,7 +38,7 @@ class DeviceSessionService {
     required String userCode,
     String? currentToken,
   }) async {
-    final result = await postDio('${server}/m/register/sessions/read', {
+    final result = await postDio('${server}m/register/sessions/read', {
       'userCode': userCode,
       'currentToken': currentToken ?? '',
     });
@@ -52,7 +52,7 @@ class DeviceSessionService {
     required String userCode,
     required String token,
   }) async {
-    final result = await postDio('${server}/m/register/sessions/revoke', {
+    final result = await postDio('${server}m/register/sessions/revoke', {
       'userCode': userCode,
       'token': token,
     });
@@ -80,7 +80,7 @@ class DeviceSessionService {
       deviceName = ios.name;
     }
 
-    await postDio('${server}/m/register/sessions/register-device', {
+    await postDio('${server}m/register/sessions/register-device', {
       'userCode': userCode,
       'token': token,
       'deviceName': deviceName,

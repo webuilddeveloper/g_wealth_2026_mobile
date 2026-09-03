@@ -114,7 +114,7 @@ class NotificationListService {
     final code = item['code']?.toString() ?? '';
     if (code.isEmpty) return;
     try {
-      await postDio('$server/m/notification/markRead', {'code': code});
+      await postDio('${server}m/notification/markRead', {'code': code});
       await NotificationStore.instance.refresh();
     } catch (_) {}
   }

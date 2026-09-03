@@ -122,8 +122,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       child: Stack(
                         children: [
                           if (widget.isBack)
-                            Align(
-                              alignment: Alignment.topLeft,
+                            Positioned(
+                              left: 0,
+                              top: 0,
                               child: Material(
                                 color: Colors.white.withValues(alpha: 0.18),
                                 shape: const CircleBorder(),
@@ -142,53 +143,57 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 36),
+                          Align(
+                            alignment: Alignment.topCenter,
                             child: Column(
-                            children: [
-                              const SizedBox(height: 4),
-                              Container(
-                                width: 72,
-                                height: 72,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black
-                                          .withValues(alpha: 0.12),
-                                      blurRadius: 12,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 4),
+                                Container(
+                                  width: 72,
+                                  height: 72,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black
+                                            .withValues(alpha: 0.12),
+                                        blurRadius: 12,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Image.asset(
+                                    'assets/icons/logo.png',
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
-                                padding: const EdgeInsets.all(10),
-                                child: Image.asset(
-                                  'assets/icons/logo.png',
-                                  fit: BoxFit.contain,
+                                const SizedBox(height: 10),
+                                Text(
+                                  'appTitle'.tr(),
+                                  textAlign: TextAlign.center,
+                                  style: GW.text(
+                                    size: 22,
+                                    weight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                'appTitle'.tr(),
-                                style: GW.text(
-                                  size: 22,
-                                  weight: FontWeight.w700,
-                                  color: Colors.white,
+                                const SizedBox(height: 4),
+                                Text(
+                                  'loginSubtitle'.tr(),
+                                  textAlign: TextAlign.center,
+                                  style: GW.text(
+                                    size: 13,
+                                    color:
+                                        Colors.white.withValues(alpha: 0.92),
+                                    height: 1.35,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'loginSubtitle'.tr(),
-                                textAlign: TextAlign.center,
-                                style: GW.text(
-                                  size: 13,
-                                  color: Colors.white.withValues(alpha: 0.92),
-                                  height: 1.35,
-                                ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -381,58 +386,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     style: GW.text(
                                       size: 15,
                                       weight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 18),
-                          Row(
-                            children: [
-                              const Expanded(child: Divider(color: GW.border)),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  'or'.tr(),
-                                  style: GW.text(
-                                    size: 12,
-                                    color: GW.inkMuted,
-                                  ),
-                                ),
-                              ),
-                              const Expanded(child: Divider(color: GW.border)),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-                            height: 50,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                backgroundColor: const Color(0xFF06C755),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                ),
-                              ),
-                              onPressed: pressLine,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    'assets/icons/line.png',
-                                    width: 22,
-                                    height: 22,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    'loginWithLine'.tr(),
-                                    style: GW.text(
-                                      size: 15,
-                                      weight: FontWeight.w700,
-                                      color: Colors.white,
                                     ),
                                   ),
                                 ],

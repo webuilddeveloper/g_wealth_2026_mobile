@@ -288,6 +288,7 @@ class _GWBottomBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
@@ -295,10 +296,8 @@ class _GWBottomBar extends StatelessWidget {
             offset: const Offset(0, -2),
           ),
         ],
-        border: const Border(
-          top: BorderSide(color: Color(0xFFECECEC), width: 0.8),
-        ),
       ),
+      clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: EdgeInsets.only(bottom: bottomInset),
         child: SizedBox(

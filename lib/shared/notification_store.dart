@@ -74,7 +74,7 @@ class NotificationStore extends ChangeNotifier {
     if (userCode.isEmpty) return;
 
     try {
-      await postDio('$server/m/notification/markRead', {
+      await postDio('${server}m/notification/markRead', {
         'userCode': userCode,
       });
       _resetCounts();
@@ -88,7 +88,7 @@ class NotificationStore extends ChangeNotifier {
     if (userCode.isEmpty) return;
 
     try {
-      await postDio('$server/m/notification/markPageRead', {
+      await postDio('${server}m/notification/markPageRead', {
         'userCode': userCode,
         'page': 'chat',
       });

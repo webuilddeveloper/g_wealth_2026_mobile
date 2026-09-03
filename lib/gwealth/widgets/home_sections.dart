@@ -203,79 +203,49 @@ class _GWBannerCarouselState extends State<GWBannerCarousel> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CarouselSlider.builder(
-          itemCount: banners.length,
-          itemBuilder: (context, i, _) {
-            final b = banners[i];
-            final imageUrl = gwStr(b, 'imageUrl');
-            final title = gwStr(b, 'title', 'G-Wealth');
-            return Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(22),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: GW.primary.withValues(alpha: 0.16),
-                    blurRadius: 14,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: imageUrl.isNotEmpty
-                  ? Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: imageUrl,
-                          fit: BoxFit.cover,
-                          placeholder: (_, __) => _BannerFallback(item: b),
-                          errorWidget: (_, __, ___) =>
-                              _BannerFallback(item: b),
-                        ),
-                        Positioned(
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          child: Container(
-                            padding: const EdgeInsets.fromLTRB(14, 20, 14, 10),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Colors.transparent,
-                                  Colors.black.withValues(alpha: 0.55),
-                                ],
-                              ),
-                            ),
-                            child: Text(
-                              title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GW.text(
-                                size: 13,
-                                weight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : _BannerFallback(item: b),
-            );
-          },
-          options: CarouselOptions(
-            height: widget.height,
-            viewportFraction: 0.88,
-            padEnds: true,
-            enableInfiniteScroll: banners.length > 1,
-            autoPlay: banners.length > 1,
-            autoPlayInterval: const Duration(seconds: 5),
-            onPageChanged: (i, _) => setState(() => _index = i),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: CarouselSlider.builder(
+            itemCount: banners.length,
+            itemBuilder: (context, i, _) {
+              final b = banners[i];
+              final imageUrl = gwStr(b, 'imageUrl');
+              return Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: GW.primary.withValues(alpha: 0.16),
+                      blurRadius: 14,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: imageUrl.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: widget.height,
+                        placeholder: (_, __) => _BannerFallback(item: b),
+                        errorWidget: (_, __, ___) =>
+                            _BannerFallback(item: b),
+                      )
+                    : _BannerFallback(item: b),
+              );
+            },
+            options: CarouselOptions(
+              height: widget.height,
+              viewportFraction: 1,
+              padEnds: false,
+              enableInfiniteScroll: banners.length > 1,
+              autoPlay: banners.length > 1,
+              autoPlayInterval: const Duration(seconds: 5),
+              onPageChanged: (i, _) => setState(() => _index = i),
+            ),
           ),
         ),
         const SizedBox(height: 8),

@@ -28,14 +28,14 @@ class FcmService {
       debugPrint('FCM TOKEN: $token');
 
       if (token != null) {
-        await postDio('$server/m/register/updateFcmToken', {
+        await postDio('${server}m/register/updateFcmToken', {
           'code': code,
           'fcmToken': token,
         });
       }
 
       fcm.onTokenRefresh.listen((newToken) {
-        postDio('$server/m/register/updateFcmToken', {
+        postDio('${server}m/register/updateFcmToken', {
           'code': UserProfileStore.instance.code,
           'fcmToken': newToken,
         });

@@ -54,7 +54,7 @@ class ApiRegisterAccountRepository implements RegisterAccountRepository {
       };
 
       final response = await client.post(
-        Uri.parse(resolveApiUrl('$_baseUrl/m/register/read')),
+        Uri.parse(resolveApiUrl('${_baseUrl}m/register/read')),
         headers: headers,
         body: jsonEncode({
           'userType': userType,

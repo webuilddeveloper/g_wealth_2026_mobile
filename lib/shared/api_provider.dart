@@ -16,13 +16,12 @@ import 'package:path/path.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 
-const versionName = '1.0.0';
-const versionNumber = 100;
+const versionName = '0.0.1';
+const versionNumber = 1;
 
 /// G-Wealth API base (เครื่อง Android ใช้ IP ของ Mac ไม่ใช่ localhost)
-const server = 'http://localhost:7201/';
-// const server = 'http://localhost:7200/';
-// const server = 'http://line-ddpm.we-builds.com/g-wealth-api/';
+// const server = 'http://localhost:7201/';
+const server = 'http://line-ddpm.we-builds.com/g-wealth-api/';
 const serverUpload = 'https://lc.we-builds.com/lc-document/upload';
 const serverOTP = 'https://portal-otp.smsmkt.com/api/';
 
@@ -54,7 +53,7 @@ const organizationImageReadApi = '${server}m/v2/organization/image/read';
 const mainPopupHomeApi = '${server}m/MainPopup/';
 const forceAdsApi = '${server}m/ForceAds/';
 
-/// บนมือถือจริงใช้ localhost ผ่าน `adb reverse tcp:7200 tcp:7200`
+/// บนมือถือจริงใช้ localhost ผ่าน `adb reverse tcp:7201 tcp:7201`
 /// (อย่าแปลงเป็น 10.0.2.2 — ค่านั้นใช้ได้เฉพาะ Android emulator)
 String resolveApiUrl(String url) => url;
 

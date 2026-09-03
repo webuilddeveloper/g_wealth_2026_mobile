@@ -58,7 +58,7 @@ class _NotificationPageState extends State<NotificationPage> {
     final code = item['code']?.toString();
     if (code != null && code.isNotEmpty) {
       try {
-        await postDio('$server/m/notification/markRead', {'code': code});
+        await postDio('${server}m/notification/markRead', {'code': code});
         await NotificationStore.instance.refresh();
       } catch (_) {}
     }

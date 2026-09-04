@@ -105,14 +105,6 @@ class _RegisterPageState extends State<RegisterPage> {
         alignment: 0.3);
   }
 
-  _imgFromCamera() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
-    setState(() {
-      profileImage = image!;
-    });
-    _upload();
-  }
-
   _imgFromGallery() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -742,7 +734,6 @@ class _RegisterPageState extends State<RegisterPage> {
     MediaPickerSheet.showImageSources(
       context,
       onGallery: _imgFromGallery,
-      onCamera: _imgFromCamera,
     );
   }
 

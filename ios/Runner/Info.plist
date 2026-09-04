@@ -33,6 +33,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>line</string>
@@ -42,19 +44,25 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>แอปนี้ต้องใช้ Bluetooth สำหรับการเชื่อมต่อเสียงระหว่างวิดีโอคอล</string>
+	<string>G-Wealth ใช้ Bluetooth เพื่อเชื่อมต่ออุปกรณ์เสริมเมื่อจำเป็น</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>แอปนี้ต้องใช้ Bluetooth สำหรับการเชื่อมต่อเสียงระหว่างวิดีโอคอล</string>
+	<string>G-Wealth ใช้ Bluetooth เพื่อเชื่อมต่ออุปกรณ์เสริมเมื่อจำเป็น</string>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_dartobservatory._tcp</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>G-Wealth ใช้สิทธิ์นี้เฉพาะเมื่อแนบรูปภาพผ่านเครื่องมือเลือกรูปของระบบ iOS</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Lawyer App wants to use your local network</string>
+	<string>G-Wealth ต้องการใช้เครือข่ายภายในเพื่อการพัฒนาและเชื่อมต่อบริการเมื่อจำเป็น</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>แอพต้องการเข้าถึงตำแหน่งของคุณเพื่อให้สามารถค้นหาทนายใกล้คุณได้</string>
+	<string>G-Wealth ต้องการเข้าถึงตำแหน่งของคุณเพื่อแสดงข้อมูลและบริการที่เกี่ยวข้องในพื้นที่ของคุณ</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>แอพต้องใช้ตำแหน่งของคุณเพื่อแสดงแผนที่</string>
+	<string>G-Wealth ต้องการใช้ตำแหน่งของคุณเพื่อแสดงข้อมูลและบริการที่เกี่ยวข้อง</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>G-Wealth ต้องการบันทึกรูปภาพลงคลังรูปของคุณเมื่อคุณเลือกบันทึก</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>G-Wealth ต้องการเข้าถึงคลังรูปภาพเพื่อเลือกรูปโปรไฟล์หรือแนบเอกสารประกอบการใช้งาน</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -117,19 +117,15 @@ class _SplashPageState extends State<SplashPage>
     final userType = UserProfileStore.instance.userType;
     if (!mounted) return;
 
-    // ชั่วคราว: ปิดหน้ายินยอม PDPA ไว้ก่อน (อย่าลบโค้ด — เปิดกลับได้ด้วย _showPdpaConsent)
-    const showPdpaConsent = false;
-    if (showPdpaConsent) {
-      final accepted = await PdpaService.hasAcceptedPdpa();
-      if (!accepted) {
-        await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => PdpaConsentPage(
-              onAccepted: () => Navigator.of(context).pop(),
-            ),
+    final accepted = await PdpaService.hasAcceptedPdpa();
+    if (!accepted) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => PdpaConsentPage(
+            onAccepted: () => Navigator.of(context).pop(),
           ),
-        );
-      }
+        ),
+      );
     }
 
     if (!mounted) return;

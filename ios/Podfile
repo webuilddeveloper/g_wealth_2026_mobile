@@ -1,4 +1,4 @@
-platform :ios, '14.0'
+platform :ios, '15.0'
 
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
@@ -51,19 +51,19 @@ post_install do |installer|
     end
 
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
         '$(inherited)',
-        ## dart: PermissionGroup.camera
-        'PERMISSION_CAMERA=1',
+        ## dart: PermissionGroup.camera (ปิด — แอปไม่ใช้กล้อง)
+        'PERMISSION_CAMERA=0',
         ## dart: PermissionGroup.microphone
-        'PERMISSION_MICROPHONE=1',
+        'PERMISSION_MICROPHONE=0',
         ## dart: PermissionGroup.photos
         'PERMISSION_PHOTOS=1',
         ## dart: PermissionGroup.location
         'PERMISSION_LOCATION=1',
         ## dart: PermissionGroup.bluetooth
-        'PERMISSION_BLUETOOTH=1',
+        'PERMISSION_BLUETOOTH=0',
       ]
 
       # Xcode 16+/26: ปิด Explicit Modules กัน PCM / header lookup พังตอน Archive

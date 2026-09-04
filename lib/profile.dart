@@ -8,6 +8,7 @@ import 'package:gwealth/gwealth/widgets/gw_app_bar.dart';
 import 'package:gwealth/menu.dart';
 import 'package:gwealth/models/user_profile_store.dart';
 import 'package:gwealth/notification-settings.dart';
+import 'package:gwealth/privacy-policy.dart';
 import 'package:gwealth/profile-form.dart';
 import 'package:gwealth/shared/responsive/res_layout.dart';
 import 'package:gwealth/widgets/profile/profile_avatar.dart';
@@ -165,6 +166,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     context,
                     MaterialPageRoute(
                       builder: (_) => const AboutUsPage(),
+                    ),
+                  );
+                },
+              ),
+              _menuItem(
+                title: 'privacyPolicy'.tr(),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const PrivacyPolicyPage(),
                     ),
                   );
                 },

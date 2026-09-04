@@ -115,13 +115,6 @@ class _ProfileFormPageState extends State<ProfileFormPage> {
     );
   }
 
-  Future<void> _imgFromCamera() async {
-    final image = await picker.pickImage(source: ImageSource.camera);
-    if (image == null) return;
-    setState(() => profileImage = image);
-    await _upload(image);
-  }
-
   Future<void> _imgFromGallery() async {
     final image = await picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
@@ -490,7 +483,6 @@ class _ProfileFormPageState extends State<ProfileFormPage> {
     MediaPickerSheet.showImageSources(
       context,
       onGallery: _imgFromGallery,
-      onCamera: _imgFromCamera,
     );
   }
 }

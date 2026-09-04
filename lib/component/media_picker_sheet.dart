@@ -41,7 +41,6 @@ class MediaPickerSheet {
 
   static Future<void> showImageSources(
     BuildContext context, {
-    required VoidCallback onCamera,
     required VoidCallback onGallery,
     String? title,
   }) {
@@ -55,13 +54,6 @@ class MediaPickerSheet {
           backgroundColor: const Color(0xFFE8F1FD),
           iconColor: primary,
           onTap: onGallery,
-        ),
-        MediaPickerOption(
-          icon: Icons.camera_alt_rounded,
-          label: 'camera'.tr(),
-          backgroundColor: const Color(0xFFEEF2F5),
-          iconColor: primary,
-          onTap: onCamera,
         ),
       ],
     );
@@ -97,7 +89,6 @@ class MediaPickerSheet {
 
   static Future<void> showChatSources(
     BuildContext context, {
-    required VoidCallback onCamera,
     required VoidCallback onGallery,
     required VoidCallback onFiles,
     String? title,
@@ -106,13 +97,6 @@ class MediaPickerSheet {
       context,
       title: title ?? 'chatAttachTitle'.tr(),
       options: [
-        MediaPickerOption(
-          icon: Icons.camera_alt_rounded,
-          label: 'camera'.tr(),
-          backgroundColor: const Color(0xFFEEF2F5),
-          iconColor: primary,
-          onTap: onCamera,
-        ),
         MediaPickerOption(
           icon: Icons.photo_library_rounded,
           label: 'gallery'.tr(),

@@ -415,6 +415,8 @@
   "username": "ชื่อผู้ใช้",
   "forgotPassword": "ลืมรหัสผ่าน?",
   "loginWithThaiID": "เข้าสู่ระบบด้วย Thai ID",
+  "thaiIdLoggingIn": "กำลังยืนยันตัวตนด้วย Thai ID...",
+  "thaiIdLoginFailed": "ไม่สามารถเข้าสู่ระบบด้วย Thai ID ได้ กรุณาลองใหม่",
   "loginFailed": "เข้าสู่ระบบไม่สำเร็จ",
   "or": "หรือ",
   "endConsultTitle": "จบการปรึกษา",

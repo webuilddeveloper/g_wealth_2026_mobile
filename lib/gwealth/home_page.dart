@@ -1,4 +1,4 @@
-import 'package:gwealth/gwealth/chatbot_page.dart';
+import 'package:gwealth/gwealth/moac_knowledge_chat_page.dart';
 import 'package:gwealth/gwealth/contact_page.dart';
 import 'package:gwealth/gwealth/data/mock_data.dart';
 import 'package:gwealth/gwealth/knowledge_page.dart';
@@ -334,7 +334,7 @@ class _GWHomePageState extends State<GWHomePage> {
           child: FloatingActionButton(
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const GWChatbotPage()),
+                MaterialPageRoute(builder: (_) => const MoacKnowledgeChatPage()),
               );
             },
             backgroundColor: GW.primary,

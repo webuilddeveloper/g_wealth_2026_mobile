@@ -415,6 +415,8 @@
   "username": "Username",
   "forgotPassword": "Forgot Password?",
   "loginWithThaiID": "Log In with Thai ID",
+  "thaiIdLoggingIn": "Verifying identity with Thai ID...",
+  "thaiIdLoginFailed": "Unable to sign in with Thai ID. Please try again.",
   "loginFailed": "Login Failed",
   "or": "or",
   "endConsultTitle": "End Consultation",

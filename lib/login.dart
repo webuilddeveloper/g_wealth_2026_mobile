@@ -1,5 +1,4 @@
 import 'package:gwealth/change-password.dart';
-import 'package:gwealth/component/comming-soon.dart';
 import 'package:gwealth/component/dialog_service.dart';
 import 'package:gwealth/component/loading_service.dart';
 import 'package:gwealth/gwealth/theme.dart';
@@ -359,19 +358,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                 ),
                                 backgroundColor: Colors.white,
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ComingSoonPage(
-                                      title: "Comming Soon",
-                                      lottieUrl:
-                                          "https://assets7.lottiefiles.com/packages/lf20_kkflmtur.json",
-                                    ),
-                                  ),
-                                );
-                              },
+                              onPressed: isLoading ? null : pressThaiId,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -403,6 +390,78 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  /// Mock Thai ID login — จำลองยืนยันตัวตน แล้วเข้าด้วยโปรไฟล์ตัวอย่าง
+  Future<void> pressThaiId() async {
+    if (isLoading) return;
+    setState(() => isLoading = true);
+
+    DialogService.showLoading(
+      context,
+      message: 'thaiIdLoggingIn'.tr(),
+    );
+
+    try {
+      // จำลองขั้นตอน Thai ID (redirect / ยืนยันตัวตน)
+      await Future.delayed(const Duration(milliseconds: 1800));
+
+      // โปรไฟล์ตัวอย่างที่ "ดึงมาจาก Thai ID"
+      const mockUser = UserModel(
+        code: 'thaiid-demo-1103700150001',
+        userType: 'user',
+        firstName: 'สมชาย',
+        lastName: 'ใจดี',
+        email: 'somchai.jaidee@example.com',
+        phone: '0812345678',
+        imageUrl: 'assets/images/profile-avatar.jpg',
+        category: 'ThaiID',
+        isActive: true,
+        status: 'A',
+        prefixName: 'นาย',
+        facebookID: '',
+        googleID: '',
+        lineID: '',
+        line: '',
+        sex: 'M',
+        address: 'กรุงเทพมหานคร',
+        idcard: '1103700150001',
+        lastLat: 0,
+        lastLong: 0,
+      );
+
+      await NotificationService.saveFcmToken(
+        await FirebaseMessaging.instance.getToken() ?? '',
+      );
+
+      await UserProfileStore.instance.setUser(
+        mockUser,
+        typeLogin: 'thaiid',
+        authToken: 'mock-thaiid-token',
+      );
+
+      FcmService.registerFcmToken(mockUser.code);
+
+      if (!mounted) return;
+      Navigator.pop(context); // ปิด loading
+
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => MenuPage(userType: mockUser.userType),
+        ),
+      );
+    } catch (e) {
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+        setState(() => isLoading = false);
+        DialogService.showError(
+          context,
+          title: 'loginFailed'.tr(),
+          message: 'thaiIdLoginFailed'.tr(),
+        );
+      }
+    }
   }
 
   pressLine() async {

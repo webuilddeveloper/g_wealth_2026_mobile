@@ -52,13 +52,15 @@
 		<string>_dartobservatory._tcp</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>G-Wealth ใช้สิทธิ์นี้เฉพาะเมื่อแนบรูปภาพผ่านเครื่องมือเลือกรูปของระบบ iOS</string>
+	<string>G-Wealth ต้องการใช้กล้องเพื่อถ่ายรูปแนบในแชทหรืออัปโหลดเอกสารประกอบ</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>G-Wealth ต้องการใช้เครือข่ายภายในเพื่อการพัฒนาและเชื่อมต่อบริการเมื่อจำเป็น</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>G-Wealth ต้องการเข้าถึงตำแหน่งของคุณเพื่อแสดงข้อมูลและบริการที่เกี่ยวข้องในพื้นที่ของคุณ</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>G-Wealth ต้องการใช้ตำแหน่งของคุณเพื่อแสดงข้อมูลและบริการที่เกี่ยวข้อง</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>G-Wealth ต้องการใช้ไมโครโฟนเพื่อถามคำถามด้วยเสียงในแชทคลังความรู้</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>G-Wealth ต้องการบันทึกรูปภาพลงคลังรูปของคุณเมื่อคุณเลือกบันทึก</string>
 	<key>NSPhotoLibraryUsageDescription</key>

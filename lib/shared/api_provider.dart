@@ -17,7 +17,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 const versionName = '0.0.1';
-const versionNumber = 1;
+const versionNumber = 4;
 
 /// G-Wealth API base (เครื่อง Android ใช้ IP ของ Mac ไม่ใช่ localhost)
 // const server = 'http://localhost:7201/';

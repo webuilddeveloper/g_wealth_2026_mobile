@@ -29,6 +29,12 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  # Pin to versions present in the local CocoaPods CDN cache.
+  # Flutter runs plain `pod install` (no --repo-update); newer lock pins fail.
+  pod 'GoogleUtilities', '8.1.2'
+  pod 'LineSDKSwift', '5.16.1'
+  pod 'GoogleDataTransport', '10.1.0'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths

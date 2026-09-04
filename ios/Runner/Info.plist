@@ -61,6 +61,8 @@
 	<string>G-Wealth ต้องการใช้ตำแหน่งของคุณเพื่อแสดงข้อมูลและบริการที่เกี่ยวข้อง</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>G-Wealth ต้องการใช้ไมโครโฟนเพื่อถามคำถามด้วยเสียงในแชทคลังความรู้</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>G-Wealth ต้องการใช้การรู้จำเสียงพูดเพื่อแปลงคำถามของคุณเป็นข้อความในแชทคลังความรู้</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>G-Wealth ต้องการบันทึกรูปภาพลงคลังรูปของคุณเมื่อคุณเลือกบันทึก</string>
 	<key>NSPhotoLibraryUsageDescription</key>

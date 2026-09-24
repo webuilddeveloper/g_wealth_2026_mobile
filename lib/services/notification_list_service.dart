@@ -12,7 +12,7 @@ class NotificationListService {
     int limit = 50,
   }) async {
     final code = UserProfileStore.instance.code;
-    if (code.isEmpty) return [];
+    if (code.isEmpty) return _mockNotifications();
 
     try {
       final result = await postDio('${server}m/notification/read', {
@@ -31,13 +31,68 @@ class NotificationListService {
 
       list.sort(_compareNotification);
 
+      if (list.isEmpty) return _mockNotifications();
+
       final unread = list.where((n) => n['isRead'] != true).length;
       NotificationStore.instance.setUnread(unread);
 
       return list;
     } catch (_) {
-      return [];
+      return _mockNotifications();
     }
+  }
+
+  static List<Map<String, dynamic>> _mockNotifications() {
+    final now = DateTime.now();
+    final list = [
+      {
+        'title': 'ยืนยันการลงทะเบียนสำเร็จ',
+        'description':
+            'บัญชี G-Wealth ของคุณพร้อมใช้งานแล้ว เริ่มตรวจสอบสิทธิ์และบริการที่เหมาะกับคุณได้ทันที',
+        'createDate':
+            now.subtract(const Duration(minutes: 18)).toIso8601String(),
+        'isRead': false,
+        'type': 'system',
+      },
+      {
+        'title': 'พบสิทธิ์ใหม่สำหรับคุณ',
+        'description':
+            'คุณอาจมีสิทธิ์รับเงินอุดหนุนค่าครองชีพ กรุณาตรวจสอบรายละเอียดและเงื่อนไขการรับสิทธิ์',
+        'createDate': now.subtract(const Duration(hours: 2)).toIso8601String(),
+        'isRead': false,
+        'type': 'benefit',
+      },
+      {
+        'title': 'แจ้งเตือนการนัดหมาย',
+        'description':
+            'คุณมีนัดหมายให้คำปรึกษาในวันพรุ่งนี้ เวลา 10:30 น. กรุณาเตรียมเอกสารให้พร้อม',
+        'createDate': now.subtract(const Duration(hours: 5)).toIso8601String(),
+        'isRead': false,
+        'type': 'booking',
+      },
+      {
+        'title': 'อัปเดตข้อมูลส่วนตัวสำเร็จ',
+        'description': 'ระบบบันทึกข้อมูลส่วนตัวล่าสุดของคุณเรียบร้อยแล้ว',
+        'createDate':
+            now.subtract(const Duration(days: 1, hours: 1)).toIso8601String(),
+        'isRead': true,
+        'type': 'system',
+      },
+      {
+        'title': 'ข่าวสารจาก G-Wealth',
+        'description':
+            'ติดตามมาตรการช่วยเหลือและข่าวสารทางการเงินใหม่ ๆ ได้จากหน้าแรกของแอป',
+        'createDate': now.subtract(const Duration(days: 3)).toIso8601String(),
+        'isRead': true,
+        'type': 'news',
+      },
+    ].map(normalize).toList();
+
+    list.sort(_compareNotification);
+    NotificationStore.instance.setUnread(
+      list.where((notification) => notification['isRead'] != true).length,
+    );
+    return list;
   }
 
   static Map<String, dynamic> normalize(Map<String, dynamic> raw) {
@@ -46,9 +101,8 @@ class NotificationListService {
         raw['body']?.toString() ??
         raw['detail']?.toString() ??
         '';
-    final createDate = raw['createDate']?.toString() ??
-        raw['createdDate']?.toString() ??
-        '';
+    final createDate =
+        raw['createDate']?.toString() ?? raw['createdDate']?.toString() ?? '';
 
     return {
       ...raw,

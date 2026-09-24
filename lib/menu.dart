@@ -25,7 +25,8 @@ class MenuPage extends StatefulWidget {
   State<MenuPage> createState() => _MenuPageState();
 }
 
-class _MenuPageState extends State<MenuPage> with SingleTickerProviderStateMixin {
+class _MenuPageState extends State<MenuPage>
+    with SingleTickerProviderStateMixin {
   static const _tabSpring = SpringDescription(
     mass: 1,
     stiffness: 80,
@@ -146,11 +147,14 @@ class _MenuPageState extends State<MenuPage> with SingleTickerProviderStateMixin
         );
       case 2:
         return typeLogin != 'null'
-            ? const NotificationPage(key: ValueKey(2))
+            ? NotificationPage(
+                key: const ValueKey(2),
+                onBack: () => _onNavTap(0),
+              )
             : LoginPage(key: const ValueKey(2), isBack: false);
       case 3:
         return typeLogin != 'null'
-            ? ProfilePage(key: const ValueKey(3))
+            ? const ProfilePage(key: ValueKey(3))
             : LoginPage(key: const ValueKey(3), isBack: false);
       default:
         return GWHomePage(

@@ -12,7 +12,9 @@ import 'package:flutter/material.dart';
 List<Map<String, dynamic>> globalNotifications = [];
 
 class NotificationPage extends StatefulWidget {
-  const NotificationPage({super.key});
+  const NotificationPage({super.key, this.onBack});
+
+  final VoidCallback? onBack;
 
   @override
   State<NotificationPage> createState() => _NotificationPageState();
@@ -87,7 +89,7 @@ class _NotificationPageState extends State<NotificationPage> {
       backgroundColor: GW.bg,
       appBar: GWAppBar(
         title: 'notifications'.tr(),
-        showBack: false,
+        onBack: widget.onBack,
         actions: unreadCount > 0
             ? [
                 Material(
@@ -117,7 +119,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
                         const SizedBox(height: 120),
-                        Icon(Icons.notifications_none_rounded,
+                        const Icon(Icons.notifications_none_rounded,
                             size: 64, color: GW.primaryMute),
                         const SizedBox(height: 12),
                         Center(
